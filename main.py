@@ -1,6 +1,8 @@
 from collections import namedtuple
 from typing import Optional
 
+import numpy as np
+
 from HandTracking.ConfigHandler import ConfigHandler
 from HandTracking.PersistenceHandler import PersistenceHandler
 from HandTracking.Point import Point
@@ -12,7 +14,7 @@ from HandTracking.MenuWheel import MenuWheel
 
 import cv2
 import mediapipe as mp
-import cProfile
+# import cProfile
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hand = mp.solutions.hands
@@ -23,7 +25,7 @@ def main(config: Settings) -> int:
     drawing_point: Optional[Point] = None
     drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
-
+    white_screen = np.full(shape=[480, 720, 4], fill_value=[255, 255, 255, 255], dtype=np.uint8)
     hand: Hand = Hand(mp_hand)
     canvas: Canvas = Canvas("Canvas", config.monitor.width, config.monitor.height)
     canvas.move_window(config.monitor.x, config.monitor.y)
@@ -66,8 +68,10 @@ def main(config: Settings) -> int:
             drawing_point, point_on_canvas = analyse_frame(camera, hands, hand, canvas, drawing_point,
                                                            drawing_precision, point_on_canvas,
                                                            menu_wheel)
-
-            canvas.show()
+            if len(camera.boundary_points) > 1:
+                canvas.show()
+            else:
+                cv2.imshow(canvas.name, white_screen)
 
         camera.show_frame()
 
@@ -240,11 +244,12 @@ def other_main_stuff():
 
 
 if __name__ == "__main__":
-    cProfile.run('other_main_stuff()', "output.dat")
-
-    import pstats
-
-    with open("prof_out.prof", "w+") as f:
-        p = pstats.Stats("output.dat", stream=f)
-        p.sort_stats("cumtime").print_stats()
+    # cProfile.run('other_main_stuff()', "output.dat")
+    #
+    # import pstats
+    #
+    # with open("prof_out.prof", "w+") as f:
+    #     p = pstats.Stats("output.dat", stream=f)
+    #     p.sort_stats("cumtime").print_stats()
+    other_main_stuff()
 

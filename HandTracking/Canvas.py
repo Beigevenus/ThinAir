@@ -68,6 +68,8 @@ class Canvas:
                 points = np.array([[point.x, point.y] for point in self.lines[-2][1]])
                 new_points = Bezier.Curve(steps, points)
                 self.lines[-2] = (self.lines[-2][0], [Point(x, y) for x, y in new_points])
+                for point in self.lines[-2][1]:
+                    self.line_array[int(point.x)][int(point.y)].append(self.lines[-2])
 
     def remove_excess_line(self):
         if self.lines[-1][1]:
@@ -75,8 +77,9 @@ class Canvas:
             self.lines.append((color, []))
 
     def add_point(self, point):
-        self.lines[-1][1].append(point)
-        self.line_array[int(point.x)][int(point.y)].append(self.lines[-1])
+        if point:
+            self.lines[-1][1].append(point)
+            # self.line_array[int(point.x)][int(point.y)].append(self.lines[-1])
 
     def draw(self):
         size = 3
