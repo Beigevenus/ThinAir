@@ -12,7 +12,7 @@ from HandTracking.MenuWheel import MenuWheel
 
 import cv2
 import mediapipe as mp
-
+import cProfile
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hand = mp.solutions.hands
@@ -21,7 +21,7 @@ mp_hand = mp.solutions.hands
 def main(config: Settings) -> int:
     # TODO: Remove when auto calibration is implemented
     drawing_point: Optional[Point] = None
-    drawing_precision: int = 9
+    drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
 
     hand: Hand = Hand(mp_hand)
@@ -38,6 +38,7 @@ def main(config: Settings) -> int:
                          Point(canvas.width - 1, canvas.height)], camera=config.camera)
 
     camera.update_image_ptm(canvas.width, canvas.height)
+    canvas.print_calibration_cross(camera)
     cv2.setMouseCallback(camera.name, lambda event, x, y, flags, param: mouse_click(camera, canvas.width,
                                                                                     canvas.height, event, x,
                                                                                     y))
@@ -47,8 +48,10 @@ def main(config: Settings) -> int:
     hands = mp_hand.Hands(
         static_image_mode=False,
         max_num_hands=1,
-        min_detection_confidence=0.7,
-        min_tracking_confidence=0.5)
+        min_detection_confidence=0.4,
+        min_tracking_confidence=0.4)
+
+    counter = 0
 
     while camera.capture.isOpened():
         camera.update_frame()
@@ -57,19 +60,22 @@ def main(config: Settings) -> int:
             # If loading a video, use 'break' instead of 'continue'.
             continue
 
-        drawing_point, point_on_canvas = analyse_frame(camera, hands, hand, canvas, drawing_point,
-                                                       drawing_precision, point_on_canvas,
-                                                       menu_wheel)
+        if counter % 2 == 0:
+            canvas.wipe()
+            canvas.draw()
+            drawing_point, point_on_canvas = analyse_frame(camera, hands, hand, canvas, drawing_point,
+                                                           drawing_precision, point_on_canvas,
+                                                           menu_wheel)
+
+            canvas.show()
 
         camera.show_frame()
 
         # TODO: Save the black spots so we can remember the last seen hand position
-        canvas.show()
 
         status = check_key_presses(canvas, camera)
 
-        canvas.wipe()
-        canvas.draw()
+        counter += 1
 
         if status == 1:
             return 0
@@ -111,15 +117,16 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
                     if menu_wheel.current_tool == "DRAW":
                         normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
                         if normalised_point is not None:
-                            point_on_canvas = normalised_point.denormalize(canvas.width, canvas.height)
+                            point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
 
-                        drawing_point = get_next_drawing_point(point_on_canvas, drawing_point, drawing_precision)
-                        if drawing_point is not None:
-                            canvas.add_point(drawing_point)
+                        # drawing_point = get_next_drawing_point(point_on_canvas, drawing_point, drawing_precision)
+                        # if drawing_point is not None:
+                        #     canvas.add_point(drawing_point)
+                        canvas.add_point(point_on_canvas)
                     else:
                         normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
                         if normalised_point is not None:
-                            point_on_canvas = normalised_point.denormalize(canvas.width, canvas.height)
+                            point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
 
                         canvas.erase(point_on_canvas, 15)
 
@@ -129,7 +136,7 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
                 if hand_sign == "Close":
                     normalised_point = camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip)
                     if normalised_point is not None:
-                        menu_point = normalised_point.denormalize(canvas.width, canvas.height)
+                        menu_point = camera.transform_point(normalised_point, canvas.width, canvas.height)
                         if not menu_wheel.is_open:
                             menu_wheel.center_point = menu_point
 
@@ -143,17 +150,15 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
             # Mask for removing the hand
             mask_points = []
             for point in hand.get_mask_points():
-                normalized_point: Point = camera.normalise_in_boundary(point)
-                if normalized_point is not None:
-                    mask_points.append(normalized_point.denormalize(canvas.width, canvas.height))
+                if camera.normalise_in_boundary(point) is not None:
+                    mask_points.append(
+                        camera.transform_point(camera.normalise_in_boundary(point), canvas.width, canvas.height))
 
             canvas.draw_mask_points(mask_points)
-            normalized_index_tip: Point = camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip)
-            if normalized_index_tip is not None:
+            if camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip) is not None:
                 canvas.draw_circle(
-                    normalized_index_tip.denormalize(canvas.width, canvas.height),
-                    color=[0, 255, 0, 255], size=3
-                )
+                    camera.transform_point(camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip), canvas.width,
+                                           canvas.height), color=[0, 255, 0, 255], size=3)
 
     return drawing_point, point_on_canvas
 
@@ -219,8 +224,7 @@ def draw_hand_landmarks(hand_landmarks, frame) -> None:
         mp_drawing_styles.get_default_hand_landmarks_style(),
         mp_drawing_styles.get_default_hand_connections_style())
 
-
-if __name__ == "__main__":
+def other_main_stuff():
     startup_dict: dict = ConfigHandler.load_startup_settings()
     settings: Optional[Settings] = None
 
@@ -233,3 +237,14 @@ if __name__ == "__main__":
     while running:
         settings = run_settings()
         running = main(settings)
+
+
+if __name__ == "__main__":
+    cProfile.run('other_main_stuff()', "output.dat")
+
+    import pstats
+
+    with open("prof_out.prof", "w+") as f:
+        p = pstats.Stats("output.dat", stream=f)
+        p.sort_stats("cumtime").print_stats()
+
