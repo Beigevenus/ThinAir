@@ -1,4 +1,5 @@
 import copy
+from hashlib import new
 
 import cv2
 import numpy as np
@@ -7,7 +8,7 @@ from numpy import ndarray
 from HandTracking.Camera import Camera
 from HandTracking.PersistenceHandler import PersistenceHandler
 from HandTracking.Point import Point
-from Bezier.Bezier import Bezier
+import bezier as bz
 
 
 class Canvas:
@@ -64,9 +65,9 @@ class Canvas:
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
             if len(self.lines) > 1:
-                steps = np.arange(0, 1, 0.01)
-                points = np.array([[point.x, point.y] for point in self.lines[-2][1]])
-                new_points = Bezier.Curve(steps, points)
+                points = [[point.x, point.y] for point in self.lines[-2][1]]
+                new_points = bz.bezier_curve(points)
+                print(new_points)
                 self.lines[-2] = (self.lines[-2][0], [Point(x, y) for x, y in new_points])
 
     def remove_excess_line(self):
