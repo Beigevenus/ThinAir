@@ -20,8 +20,9 @@ class MenuWheel:
         self.initialize_buttons()
 
     def initialize_buttons(self):
-        self.add_tool_button(self.__select_eraser, "ERASE")
-        self.add_tool_button(self.__select_drawer, "DRAW")
+        # TODO: Write docstring for method
+        self.add_tool_button(self.__select_eraser, "ERASE", img="eraser.png")
+        self.add_tool_button(self.__select_drawer, "DRAW", img="brush.png")
         self.add_tool_button(self.__select_wipe, "WIPE")
 
         for name, color in self.color_palette.items():
@@ -30,11 +31,12 @@ class MenuWheel:
     def open(self):
         pass
 
-    def add_tool_button(self, callback, tool):
+    def add_tool_button(self, callback, tool, img=None):
+        # TODO: Write docstring for method
         if self.current_tool == tool:
-            self.tool_buttons.append(Button(callback, active=True))
+            self.tool_buttons.append(Button(callback, active=True, icon=img))
         else:
-            self.tool_buttons.append(Button(callback))
+            self.tool_buttons.append(Button(callback, icon=img))
 
     def add_color_button(self, callback, color):
         if self.drawing_color == color:
@@ -56,6 +58,10 @@ class MenuWheel:
                 self.layer.draw_circle(button.location, [255, 201, 99, 255], circle_size + 4)
 
             self.layer.draw_circle(button.location, [150, 150, 150, 255], circle_size)
+
+            if button.icon is not None:
+                self.layer.draw_img(button.icon, button.size, button.location)
+                pass
 
         for idx, button in enumerate(self.color_buttons):
             button.size = circle_size
