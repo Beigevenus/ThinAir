@@ -20,9 +20,10 @@ class MenuWheel:
         self.initialize_buttons()
 
     def initialize_buttons(self):
-        self.add_tool_button(self.__select_eraser, "ERASE")
-        self.add_tool_button(self.__select_drawer, "DRAW")
-        self.add_tool_button(self.__select_wipe, "WIPE")
+        # TODO: Write docstring for method
+        self.add_tool_button(self.__select_eraser, "ERASE", img="eraser.png")
+        self.add_tool_button(self.__select_drawer, "DRAW", img="brush.png")
+        self.add_tool_button(self.__select_wipe, "WIPE", img="wipe.png")
 
         for name, color in self.color_palette.items():
             self.add_color_button(self.__change_color, color)
@@ -30,11 +31,12 @@ class MenuWheel:
     def open(self):
         pass
 
-    def add_tool_button(self, callback, tool):
+    def add_tool_button(self, callback, tool, img=None):
+        # TODO: Write docstring for method
         if self.current_tool == tool:
-            self.tool_buttons.append(Button(callback, active=True))
+            self.tool_buttons.append(Button(callback, active=True, icon=img))
         else:
-            self.tool_buttons.append(Button(callback))
+            self.tool_buttons.append(Button(callback, icon=img))
 
     def add_color_button(self, callback, color):
         if self.drawing_color == color:
@@ -43,13 +45,13 @@ class MenuWheel:
             self.color_buttons.append(Button(callback, color=color))
 
     def draw_buttons(self):
-        bot_left = Point(self.layer.width, self.layer.height)
+        top_left = Point(self.layer.width, 0)
         circle_size = round(self.layer.width * 0.03)
 
         for idx, button in enumerate(self.tool_buttons):
             button.size = circle_size
-            button_location = Point(round(bot_left.x - circle_size - (circle_size / 2)),
-                                    round(bot_left.y - ((circle_size * 2 + 10) * (idx + 1)) - (circle_size * 2)))
+            button_location = Point(round(top_left.x - circle_size - (circle_size / 2)),
+                                    round(top_left.y + ((circle_size * 2 + 10) * (idx + 1)) + (circle_size * 2)))
             button.set_location(button_location)
             
             if button.active:
@@ -57,10 +59,14 @@ class MenuWheel:
 
             self.layer.draw_circle(button.location, [150, 150, 150, 255], circle_size)
 
+            if button.icon is not None:
+                self.layer.draw_img(button.icon, button.size, button.location)
+                pass
+
         for idx, button in enumerate(self.color_buttons):
             button.size = circle_size
-            button_location = Point(round(bot_left.x - ((circle_size * 2 + 10) * (idx + 1)) - (circle_size * 2)),
-                                    round(bot_left.y - circle_size - (circle_size / 2)))
+            button_location = Point(round(top_left.x - ((circle_size * 2 + 10) * (idx + 1)) - (circle_size * 2)),
+                                    round(top_left.y + circle_size + (circle_size / 2)))
             button.set_location(button_location)
 
             if button.active:

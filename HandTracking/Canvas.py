@@ -1,5 +1,5 @@
 import copy
-from hashlib import new
+from math import sqrt
 
 import cv2
 import numpy as np
@@ -232,6 +232,23 @@ class Canvas:
     #
     #     self.width = width
     #     self.height = height
+
+    def draw_img(self, img, size: int, pos: Point):
+        size = int(size*sqrt(2))
+        s_img = img
+        s_img = cv2.resize(s_img, (size, size))
+
+        y_offset = int(pos.y - size/2)
+        x_offset = int(pos.x - size/2)
+        y1, y2 = y_offset, y_offset + s_img.shape[0]
+        x1, x2 = x_offset, x_offset + s_img.shape[1]
+
+        alpha_s = s_img[:, :, 3] / 255.0
+        alpha_l = 1.0 - alpha_s
+
+        for c in range(0, 3):
+            self.image[y1:y2, x1:x2, c] = (alpha_s * s_img[:, :, c] +
+                                           alpha_l * self.image[y1:y2, x1:x2, c])
 
     def draw_mask_points(self, points: list[Point]) -> None:
         """
