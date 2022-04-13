@@ -148,6 +148,14 @@ class Camera:
         # TODO: Write docstring for method
         if not len(self.calibration_points) <= 3:
             self.ptm, self.warped_width, self.warped_height = fpt(self.get_expanded_corners(), width, height)
+            self.boundary_points.clear()
+            self.boundaries['x_min'] = int(self.warped_width * self.boundaries['x_min'])
+            self.boundaries['y_min'] = int(self.warped_height * self.boundaries['y_min'])
+            self.boundary_points.append(Point(self.boundaries['x_min'], self.boundaries['y_min']))
+            self.boundaries['x_max'] = int(self.warped_width - self.boundaries['x_min'])
+            self.boundaries['y_max'] = int(self.warped_height - self.boundaries['y_min'])
+            self.boundary_points.append(Point(self.boundaries['x_max'], self.boundaries['y_max']))
+
 
     def get_expanded_corners(self):
         min_x = min(self.sorted_calibration_points[0].x, self.sorted_calibration_points[3].x)
@@ -164,23 +172,27 @@ class Camera:
         if aspect_ratio_outer > aspect_ratio_inner:
             target_resolution = (inner_width * (self.height / inner_height), self.height)
             offset_width = (target_resolution[0] - inner_width) / 2
+            self.boundaries["x_min"] = offset_width/target_resolution[0]
             # if min_x - offset_width > 0:
             offset_width = min_x - offset_width
             # else:
             #     offset_width = 0
             offset_height = 0
             offset_height = (target_resolution[1] - inner_height) / 2
+            self.boundaries["y_min"] = offset_height/target_resolution[1]
             # if min_y - offset_height > 0:
             offset_height = min_y - offset_height
         else:
             target_resolution = (self.width, inner_height * (self.width / inner_width))
             offset_width = 0
             offset_height = (target_resolution[1] - inner_height) / 2
+            self.boundaries["y_min"] = offset_height/target_resolution[1]
             # if min_y - offset_height > 0:
             offset_height = min_y - offset_height
             # else:
             #     offset_height = 0
             offset_width = (target_resolution[0] - inner_width) / 2
+            self.boundaries["x_min"] = offset_width/target_resolution[0]
             # if min_x - offset_width > 0:
             offset_width = min_x - offset_width
 
