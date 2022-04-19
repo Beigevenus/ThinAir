@@ -65,6 +65,8 @@ def main(config: Settings) -> int:
             # If loading a video, use 'break' instead of 'continue'.
             continue
 
+        camera.show_frame()
+
         if counter % 2 == 0:
             canvas.wipe()
             canvas.draw()
@@ -76,7 +78,6 @@ def main(config: Settings) -> int:
             else:
                 cv2.imshow(canvas.name, white_screen)
 
-        camera.show_frame()
 
         # TODO: Save the black spots so we can remember the last seen hand position
 
