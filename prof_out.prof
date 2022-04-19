@@ -1,0 +1,320 @@
+Tue Apr 12 16:46:08 2022    output.dat
+
+         13462717 function calls (13290428 primitive calls) in 193.694 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      2/1    0.000    0.000  194.284  194.284 {built-in method builtins.exec}
+        1    0.000    0.000  194.284  194.284 /home/donut/Desktop/ThinAir/ThinAir/main.py:230(other_main_stuff)
+        1    0.181    0.181  194.283  194.283 /home/donut/Desktop/ThinAir/ThinAir/main.py:24(main)
+     5594    0.185    0.000   66.995    0.012 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:54(update_frame)
+     2797    0.189    0.000   50.774    0.018 /home/donut/Desktop/ThinAir/ThinAir/main.py:91(analyse_frame)
+     2797    0.025    0.000   40.245    0.014 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solutions/hands.py:132(process)
+     2797   39.264    0.014   40.220    0.014 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:267(process)
+     5594   36.327    0.006   36.327    0.006 {method 'read' of 'cv2.VideoCapture' objects}
+     5593    0.040    0.000   32.668    0.006 /home/donut/Desktop/ThinAir/ThinAir/main.py:169(check_key_presses)
+     5593   32.628    0.006   32.628    0.006 {waitKey}
+     5593   29.645    0.005   29.645    0.005 {warpPerspective}
+     2808    0.056    0.000   21.506    0.008 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:35(wipe)
+     2810    0.031    0.000   21.464    0.008 /home/donut/.local/lib/python3.9/site-packages/numpy/core/numeric.py:289(full)
+     6908   21.383    0.003   21.420    0.003 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     2810    0.025    0.000   21.401    0.008 <__array_function__ internals>:177(copyto)
+     2797    0.750    0.000   12.421    0.004 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:82(draw)
+  2815970    3.163    0.000   11.671    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:110(draw_line)
+      685    0.002    0.000    6.719    0.010 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:60(new_line)
+       31    6.707    0.216    6.707    0.216 {built-in method bezier.bezier_curve}
+     8390    6.067    0.001    6.067    0.001 {imshow}
+  2853852    2.077    0.000    4.659    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:128(draw_circle)
+     5593    0.031    0.000    4.553    0.001 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:47(show_frame)
+     2797    0.020    0.000    4.335    0.002 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:243(show)
+  2815970    4.134    0.000    4.134    0.000 {line}
+     8391    2.994    0.000    2.994    0.000 {flip}
+  2853852    2.583    0.000    2.583    0.000 {circle}
+     2797    2.096    0.001    2.096    0.001 {cvtColor}
+        1    0.000    0.000    0.734    0.734 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:15(__init__)
+     2049    0.009    0.000    0.675    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:73(get_hand_sign)
+     2049    0.015    0.000    0.666    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:49(get_hand_sign)
+     5593    0.063    0.000    0.605    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:114(draw_calibration_points)
+        1    0.001    0.001    0.588    0.588 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:23(<listcomp>)
+     5593    0.532    0.000    0.532    0.000 {rectangle}
+     2797    0.207    0.000    0.529    0.000 /usr/lib/python3.9/collections/__init__.py:345(namedtuple)
+     2049    0.052    0.000    0.381    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:57(pre_process_landmark)
+        1    0.072    0.072    0.357    0.357 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:14(__init__)
+131351/2092    0.137    0.000    0.314    0.000 /usr/lib/python3.9/copy.py:128(deepcopy)
+45121/2092    0.076    0.000    0.303    0.000 /usr/lib/python3.9/copy.py:200(_deepcopy_list)
+     2049    0.020    0.000    0.289    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:233(draw_mask_points)
+     2797    0.272    0.000    0.275    0.000 {built-in method builtins.eval}
+     8391    0.040    0.000    0.240    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:515(_get_packet_content)
+     6147    0.059    0.000    0.187    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/packet_getter.py:78(get_proto_list)
+        2    0.168    0.084    0.168    0.084 {namedWindow}
+     2049    0.025    0.000    0.166    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:31(__call__)
+     2049    0.084    0.000    0.163    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:18(update)
+    77215    0.109    0.000    0.125    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:101(normalise_in_boundary)
+     2800    0.027    0.000    0.123    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:506(_make_packet)
+     2049    0.082    0.000    0.104    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:83(calc_landmark_list)
+    38226    0.035    0.000    0.090    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:241(transform_point)
+     2797    0.013    0.000    0.081    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/packet_creator.py:53(create_image_frame)
+     6148    0.065    0.000    0.065    0.000 {method 'ParseFromString' of 'google.protobuf.pyext._message.CMessage' objects}
+     2797    0.065    0.000    0.065    0.000 {built-in method mediapipe.python._framework_bindings._packet_creator._create_image_frame_from_pixel_data}
+       11    0.000    0.000    0.060    0.005 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:129(close_menu)
+     2797    0.049    0.000    0.049    0.000 {method 'clear' of 'dict' objects}
+   164502    0.047    0.000    0.047    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Point.py:2(__init__)
+    43029    0.034    0.000    0.045    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Point.py:15(from_landmark)
+    78305    0.040    0.000    0.040    0.000 {built-in method builtins.round}
+      109    0.000    0.000    0.037    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:116(check_button_click)
+    45121    0.026    0.000    0.034    0.000 /usr/lib/python3.9/copy.py:242(_keep_alive)
+        6    0.000    0.000    0.034    0.006 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:88(__select_wipe)
+        6    0.029    0.005    0.034    0.006 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:41(hard_wipe)
+     2049    0.004    0.000    0.033    0.000 <__array_function__ internals>:177(argmax)
+     2810    0.032    0.000    0.032    0.000 {built-in method numpy.empty}
+        1    0.000    0.000    0.030    0.030 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solutions/hands.py:89(__init__)
+     2051    0.029    0.000    0.029    0.000 {built-in method numpy.array}
+        1    0.027    0.027    0.029    0.029 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:193(__init__)
+      118    0.028    0.000    0.029    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:92(erase)
+   295746    0.029    0.000    0.029    0.000 {method 'append' of 'list' objects}
+   265507    0.028    0.000    0.028    0.000 {method 'get' of 'dict' objects}
+     2049    0.021    0.000    0.026    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:903(invoke)
+     2049    0.008    0.000    0.026    0.000 /home/donut/.local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:1127(argmax)
+     2049    0.006    0.000    0.025    0.000 <__array_function__ internals>:177(squeeze)
+     2049    0.018    0.000    0.024    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:50(get_mask_points)
+   223685    0.023    0.000    0.023    0.000 {built-in method builtins.id}
+     2049    0.022    0.000    0.022    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:682(set_tensor)
+    27269    0.022    0.000    0.022    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.021    0.021 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:8(__init__)
+        1    0.000    0.000    0.021    0.021 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:12(__init__)
+     6147    0.021    0.000    0.021    0.000 {method 'FindMessageTypeByName' of 'google.protobuf.pyext._message.DescriptorPool' objects}
+        1    0.020    0.020    0.020    0.020 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:512(allocate_tensors)
+     5593    0.019    0.000    0.019    0.000 {method 'isOpened' of 'cv2.VideoCapture' objects}
+    40980    0.019    0.000    0.019    0.000 /usr/lib/python3.9/enum.py:431(__getitem__)
+    86062    0.018    0.000    0.018    0.000 {built-in method builtins.min}
+     2049    0.004    0.000    0.017    0.000 /home/donut/.local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:51(_wrapfunc)
+     8947    0.013    0.000    0.017    0.000 /usr/lib/python3.9/types.py:171(__get__)
+     5605    0.011    0.000    0.017    0.000 {method 'join' of 'str' objects}
+    10245    0.015    0.000    0.015    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:89(update_finger)
+      109    0.000    0.000    0.015    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:124(open_menu)
+     6147    0.015    0.000    0.015    0.000 {built-in method mediapipe.python._framework_bindings._packet_getter._get_serialized_proto_list}
+      109    0.003    0.000    0.015    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:45(draw_buttons)
+     8403    0.014    0.000    0.014    0.000 {built-in method builtins.isinstance}
+    86058    0.013    0.000    0.013    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:76(normalize_)
+    11002    0.012    0.000    0.012    0.000 {built-in method builtins.getattr}
+     2049    0.012    0.000    0.012    0.000 {method 'argmax' of 'numpy.ndarray' objects}
+     2049    0.005    0.000    0.011    0.000 /home/donut/.local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:1478(squeeze)
+     6147    0.010    0.000    0.010    0.000 {built-in method mediapipe.python._framework_bindings._packet_getter._get_proto_vector_element_type_name}
+     6147    0.009    0.000    0.009    0.000 {built-in method mediapipe.python._framework_bindings._packet_getter._get_proto_vector_size}
+    86230    0.008    0.000    0.008    0.000 /usr/lib/python3.9/copy.py:182(_deepcopy_atomic)
+    11188    0.007    0.000    0.007    0.000 {built-in method sys.intern}
+     2049    0.006    0.000    0.006    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:838(get_tensor)
+    11188    0.006    0.000    0.006    0.000 /usr/lib/python3.9/collections/__init__.py:419(<genexpr>)
+     2049    0.006    0.000    0.006    0.000 {method 'squeeze' of 'numpy.ndarray' objects}
+     6147    0.006    0.000    0.006    0.000 /home/donut/.local/lib/python3.9/site-packages/google/protobuf/message_factory.py:66(GetPrototype)
+       32    0.006    0.000    0.006    0.000 {built-in method builtins.print}
+    11188    0.005    0.000    0.005    0.000 {method 'isidentifier' of 'str' objects}
+     1259    0.005    0.000    0.005    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:78(add_point)
+     2050    0.002    0.000    0.005    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:528(_ensure_safe)
+     8394    0.005    0.000    0.005    0.000 {built-in method builtins.setattr}
+     7646    0.004    0.000    0.004    0.000 {method 'keys' of 'dict' objects}
+     8947    0.004    0.000    0.004    0.000 /usr/lib/python3.9/enum.py:792(value)
+     8398    0.004    0.000    0.004    0.000 {method 'startswith' of 'str' objects}
+    11188    0.004    0.000    0.004    0.000 {method '__contains__' of 'frozenset' objects}
+       31    0.002    0.000    0.004    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:71(<listcomp>)
+     2049    0.003    0.000    0.003    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:253(calibration_is_done)
+     2055    0.003    0.000    0.003    0.000 {built-in method builtins.max}
+     2050    0.002    0.000    0.003    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:516(_safe_to_run)
+    12294    0.002    0.000    0.002    0.000 /home/donut/.local/lib/python3.9/site-packages/google/protobuf/symbol_database.py:192(Default)
+      872    0.001    0.000    0.002    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Button.py:15(is_point_in_circle)
+     2802    0.002    0.000    0.002    0.000 {method 'items' of 'dict' objects}
+     2810    0.002    0.000    0.002    0.000 /home/donut/.local/lib/python3.9/site-packages/numpy/core/multiarray.py:1071(copyto)
+     8391    0.002    0.000    0.002    0.000 {method 'add' of 'set' objects}
+        1    0.000    0.000    0.001    0.001 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:260(fullscreen)
+        1    0.001    0.001    0.001    0.001 {setWindowProperty}
+     2797    0.001    0.000    0.001    0.000 {built-in method sys._getframe}
+        5    0.000    0.000    0.001    0.000 {built-in method io.open}
+     1377    0.001    0.000    0.001    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:41(get_index_tip)
+     2616    0.001    0.000    0.001    0.000 {built-in method builtins.pow}
+        1    0.000    0.000    0.001    0.001 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:363(_initialize_graph_interface)
+     2049    0.001    0.000    0.001    0.000 /home/donut/.local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:1474(_squeeze_dispatcher)
+        1    0.000    0.000    0.001    0.001 /usr/lib/python3.9/encodings/__init__.py:70(search_function)
+     2049    0.001    0.000    0.001    0.000 {built-in method from_iterable}
+        8    0.001    0.000    0.001    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:102(delete_line)
+        1    0.000    0.000    0.001    0.001 {built-in method builtins.__import__}
+        1    0.000    0.000    0.001    0.001 <frozen importlib._bootstrap>:1002(_find_and_load)
+     2049    0.001    0.000    0.001    0.000 /home/donut/.local/lib/python3.9/site-packages/numpy/core/fromnumeric.py:1123(_argmax_dispatcher)
+        1    0.001    0.001    0.001    0.001 {built-in method mediapipe.python._framework_bindings.resource_util.set_resource_dir}
+        1    0.000    0.000    0.001    0.001 <frozen importlib._bootstrap>:967(_find_and_load_unlocked)
+        4    0.000    0.000    0.001    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/JsonHandler.py:10(load)
+     2049    0.001    0.000    0.001    0.000 {method 'values' of 'dict' objects}
+        3    0.000    0.000    0.001    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/ConfigHandler.py:16(load)
+     2050    0.001    0.000    0.001    0.000 {built-in method sys.getrefcount}
+       31    0.001    0.000    0.001    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:68(<listcomp>)
+        1    0.000    0.000    0.001    0.001 <frozen importlib._bootstrap>:659(_load_unlocked)
+      872    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Button.py:12(set_location)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/ConfigHandler.py:51(load_boundary_points)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:844(exec_module)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:147(update_image_ptm)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:916(get_code)
+        3    0.000    0.000    0.000    0.000 /usr/lib/python3.9/json/__init__.py:274(load)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:415(_modify_calculator_options)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:397(__init__)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/ConfigHandler.py:34(load_calibration_points)
+        1    0.000    0.000    0.000    0.000 {built-in method tensorflow.lite.python.interpreter_wrapper._pywrap_tensorflow_interpreter_wrapper.CreateWrapperFromFile}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:901(_find_spec)
+        3    0.000    0.000    0.000    0.000 /usr/lib/python3.9/json/__init__.py:299(loads)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/image_wrap.py:8(four_point_transform)
+        3    0.000    0.000    0.000    0.000 /usr/lib/python3.9/json/decoder.py:332(decode)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1415(find_spec)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:152(get_expanded_corners)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1383(_get_spec)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:7(__init__)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:503(__del__)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1514(find_spec)
+      890    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1036(get_data)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:22(initialize_buttons)
+        3    0.000    0.000    0.000    0.000 /usr/lib/python3.9/json/decoder.py:343(raw_decode)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:558(module_from_spec)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:386(<dictcomp>)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:486(_init_module_attrs)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:258(<dictcomp>)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/ConfigHandler.py:66(load_startup_settings)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:220(_call_with_frames_removed)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:1(<module>)
+        1    0.000    0.000    0.000    0.000 {getPerspectiveTransform}
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/posixpath.py:373(abspath)
+        3    0.000    0.000    0.000    0.000 {method 'read' of '_io.TextIOWrapper' objects}
+        4    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:381(get_stream_packet_type)
+        3    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:135(_path_stat)
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.__build_class__}
+        1    0.000    0.000    0.000    0.000 {built-in method io.open_code}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:361(cache_from_source)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:652(get_input_details)
+        3    0.000    0.000    0.000    0.000 {built-in method posix.stat}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:385(cached)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:266(move_window)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:645(_compile_bytecode)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:156(__enter__)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:276(print_calibration_cross)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:491(_get_cached)
+        1    0.000    0.000    0.000    0.000 {moveWindow}
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/PersistenceHandler.py:44(load_drawing)
+        1    0.000    0.000    0.000    0.000 {built-in method marshal.loads}
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/posixpath.py:334(normpath)
+        5    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:39(add_color_button)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:678(<listcomp>)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:409(<dictcomp>)
+        2    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:437(modify_options_fields)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:422(generate_nested_calculator_params)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:395(<dictcomp>)
+        5    0.000    0.000    0.000    0.000 {method '__exit__' of '_io._IOBase' objects}
+        3    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:33(add_tool_button)
+        8    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Button.py:5(__init__)
+        2    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:569(_get_tensor_details)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:166(_get_module_lock)
+        1    0.000    0.000    0.000    0.000 {built-in method cv2.cv2.setMouseCallback}
+        6    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:121(_path_join)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1077(path_stats)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/posixpath.py:71(join)
+        4    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Point.py:12(__str__)
+       14    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:374(get_name)
+        3    0.000    0.000    0.000    0.000 /usr/lib/python3.9/_bootlocale.py:33(getpreferredencoding)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/__init__.py:43(normalize_encoding)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:127(_path_split)
+        5    0.000    0.000    0.000    0.000 /usr/lib/python3.9/codecs.py:319(decode)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/keypoint_classifier/keypoint_classifier.py:27(<listcomp>)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:741(get_signature_list)
+        3    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:404(get_side_packet_type)
+        5    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Hand.py:77(__init__)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:35(update_boundaries)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1509(_get_spec)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:729(get_output_details)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Camera.py:204(sort_calibration_points)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:87(acquire)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/posixpath.py:60(isabs)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:154(_path_isfile)
+        6    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:123(<listcomp>)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:121(getregentry)
+       18    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 {method 'get' of 'cv2.VideoCapture' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:145(_path_is_mode_type)
+        3    0.000    0.000    0.000    0.000 {built-in method _locale.nl_langinfo}
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:737(<listcomp>)
+       16    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:71(__select_eraser)
+        6    0.000    0.000    0.000    0.000 {method 'match' of 're.Pattern' objects}
+        4    0.000    0.000    0.000    0.000 /usr/lib/python3.9/codecs.py:309(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'read' of '_io.BufferedReader' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:560(_classify_pyc)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:696(spec_from_file_location)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/codecs.py:94(__new__)
+        6    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Point.py:28(from_dict)
+        2    0.000    0.000    0.000    0.000 {built-in method mediapipe.python._framework_bindings._packet_creator.create_int}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:58(__init__)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:341(_get_op_resolver_id)
+        3    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:79(_unpack_uint32)
+        2    0.000    0.000    0.000    0.000 /usr/lib/python3.9/posixpath.py:41(_get_sep)
+        7    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/mediapipe/python/solution_base.py:98(from_registered_name)
+        2    0.000    0.000    0.000    0.000 {method 'HasField' of 'google.protobuf.pyext._message.CMessage' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:160(__exit__)
+        4    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:129(<genexpr>)
+        5    0.000    0.000    0.000    0.000 {built-in method _codecs.utf_8_decode}
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Settings.py:17(from_dict)
+        7    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:231(_verbose_message)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:112(release)
+        6    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:593(_validate_timestamp_pyc)
+        2    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:54(_buffer_decode)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:811(find_spec)
+        7    0.000    0.000    0.000    0.000 {built-in method posix.fspath}
+        2    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+        4    0.000    0.000    0.000    0.000 /usr/lib/python3.9/codecs.py:260(__init__)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:523(_check_name_wrapper)
+        3    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:874(__enter__)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:50(__init__)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:398(parent)
+        3    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:878(__exit__)
+       14    0.000    0.000    0.000    0.000 {method 'rstrip' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:185(cb)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:35(_new_module)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:152(__init__)
+        5    0.000    0.000    0.000    0.000 /usr/lib/python3.9/enum.py:774(__hash__)
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        5    0.000    0.000    0.000    0.000 {built-in method _imp.acquire_lock}
+        1    0.000    0.000    0.000    0.000 {built-in method _csv.reader}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1346(_path_importer_cache)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:351(__init__)
+        2    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        9    0.000    0.000    0.000    0.000 {method 'isalnum' of 'str' objects}
+        5    0.000    0.000    0.000    0.000 {built-in method _imp.release_lock}
+        1    0.000    0.000    0.000    0.000 <string>:2(__init__)
+        1    0.000    0.000    0.000    0.000 {built-in method mediapipe.python._framework_bindings._packet_creator.create_bool}
+        2    0.000    0.000    0.000    0.000 {method 'rfind' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1006(__init__)
+        6    0.000    0.000    0.000    0.000 {method 'end' of 're.Match' objects}
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:26(IncrementalEncoder)
+        3    0.000    0.000    0.000    0.000 {built-in method from_bytes}
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/MenuWheel.py:91(__clear_active_tool_button)
+        1    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method _imp.is_frozen}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:68(_relax_case)
+        1    0.000    0.000    0.000    0.000 <string>:1(<module>)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Canvas.py:30(update_line_array)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:736(find_spec)
+        1    0.000    0.000    0.000    0.000 /home/donut/Desktop/ThinAir/ThinAir/HandTracking/Settings.py:11(__init__)
+        2    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        1    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x90a2e0}
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:49(IncrementalDecoder)
+        5    0.000    0.000    0.000    0.000 {built-in method builtins.hash}
+        1    0.000    0.000    0.000    0.000 {built-in method _imp._fix_co_filename}
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/metrics/metrics.py:34(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:406(has_location)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:85(StreamWriter)
+        1    0.000    0.000    0.000    0.000 /usr/lib/python3.9/encodings/utf_8_sig.py:97(StreamReader)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1031(get_filename)
+        1    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:841(create_module)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/metrics/metrics.py:42(increase_counter_interpreter_creation)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:449(<listcomp>)
+        1    0.000    0.000    0.000    0.000 /home/donut/.local/lib/python3.9/site-packages/tensorflow/lite/python/interpreter.py:452(<listcomp>)
+
+

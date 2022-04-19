@@ -79,8 +79,3 @@ class Point:
         :return: A list containing the Point object's coordinates
         """
         return [self.x, self.y]
-
-    # TODO: Reconsider the location of this method
-    def denormalize(self, width, height) -> 'Point':
-        # TODO: Write docstring for method
-        return Point(round(self.x * width), round(self.y * height))

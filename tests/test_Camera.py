@@ -1,3 +1,5 @@
+from typing import Optional
+
 from HandTracking.Camera import Camera
 from HandTracking.Point import Point
 import pytest
@@ -38,40 +40,38 @@ class TestCamera:
         assert camera.sorted_calibration_points[2] == expected_order[2]
         assert camera.sorted_calibration_points[3] == expected_order[3]
 
-    # TODO: Rename and fix this test case
-    # @pytest.mark.parametrize('point1, expected',
-    #                          [(Point(0.02, 0.03), None),
-    #                           (Point(0.08, 0.10), Point(0.052631579, 0.078947368)),
-    #                           (Point(0.0, 0.0), None),
-    #                           (Point(0.30, 0.30), Point(0.342105263, 0.342105263)),
-    #                           (Point(1.00, 1.00), None),
-    #                           (Point(0.80, 0.80), Point(1.00, 1.00)),
-    #                           (Point(0.04, 0.04), Point(0.00, 0.00)),
-    #                           (Point(0.80, 0.04), Point(1.00, 0.00)),
-    #                           (Point(0.40, 0.40), Point(0.473684211, 0.473684211))
-    #                           ])
-    # def test_sort_calibration_points_2(self, point1: Point, expected: Optional[Point]):
-    #     # Arrange
-    #     calibration_points: list[Point] = [Point(0, 0), Point(500, 0), Point(500, 500), Point(0, 500)]
-    #     camera: Camera = Camera.__new__(Camera)
-    #     camera.calibration_points = calibration_points
-    #     camera.width = 500
-    #     camera.height = 500
-    #     camera.boundary_points = []
-    #     camera.boundaries = {"x_min": None, "x_max": None, "y_min": None, "y_max": None}
-    #     # TODO: This will create a config file, please fix this
-    #     camera.update_calibration_point(Point(20, 20), 0, 0)
-    #     camera.update_calibration_point(Point(400, 400), 0, 0)
-    #
-    #     # Act
-    #     boundary_point = camera.normalise_in_boundary(point1)
-    #
-    #     # Assert
-    #     if expected:
-    #         assert round(boundary_point.x, 9) == expected.x
-    #         assert round(boundary_point.y, 9) == expected.y
-    #     else:
-    #         assert boundary_point == expected
+    @pytest.mark.parametrize('point1, expected',
+                             [(Point(0.02, 0.03), None),
+                              (Point(0.08, 0.10), Point(0.052631579, 0.078947368)),
+                              (Point(0.0, 0.0), None),
+                              (Point(0.30, 0.30), Point(0.342105263, 0.342105263)),
+                              (Point(1.00, 1.00), None),
+                              (Point(0.80, 0.80), Point(1.00, 1.00)),
+                              (Point(0.04, 0.04), Point(0.00, 0.00)),
+                              (Point(0.80, 0.04), Point(1.00, 0.00)),
+                              (Point(0.40, 0.40), Point(0.473684211, 0.473684211))
+                              ])
+    def test_sort_calibration_points(self, point1: Point, expected: Optional[Point]):
+        # Arrange
+        calibration_points: list[Point] = [Point(0, 0), Point(500, 0), Point(500, 500), Point(0, 500)]
+        camera: Camera = Camera.__new__(Camera)
+        camera.calibration_points = calibration_points
+        camera.width = 500
+        camera.height = 500
+        camera.boundary_points = []
+        camera.boundaries = {"x_min": None, "x_max": None, "y_min": None, "y_max": None}
+        camera.update_calibration_point(Point(20, 20), 0, 0)
+        camera.update_calibration_point(Point(400, 400), 0, 0)
+
+        # Act
+        boundary_point = camera.normalise_in_boundary(point1)
+
+        # Assert
+        if expected:
+            assert round(boundary_point.x, 9) == expected.x
+            assert round(boundary_point.y, 9) == expected.y
+        else:
+            assert boundary_point == expected
 
     # TODO: Write test case
     def test_transform_point(self):

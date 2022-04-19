@@ -20,7 +20,6 @@ class MenuWheel:
         self.initialize_buttons()
 
     def initialize_buttons(self):
-        # TODO: Write docstring for method
         self.add_tool_button(self.__select_eraser, "ERASE")
         self.add_tool_button(self.__select_drawer, "DRAW")
         self.add_tool_button(self.__select_wipe, "WIPE")
@@ -32,21 +31,18 @@ class MenuWheel:
         pass
 
     def add_tool_button(self, callback, tool):
-        # TODO: Write docstring for method
         if self.current_tool == tool:
             self.tool_buttons.append(Button(callback, active=True))
         else:
             self.tool_buttons.append(Button(callback))
 
     def add_color_button(self, callback, color):
-        # TODO: Write docstring for method
         if self.drawing_color == color:
             self.color_buttons.append(Button(callback, color=color, active=True))
         else:
             self.color_buttons.append(Button(callback, color=color))
 
     def draw_buttons(self):
-        # TODO: Write docstring for method
         bot_left = Point(self.layer.width, self.layer.height)
         circle_size = round(self.layer.width * 0.03)
 
@@ -73,7 +69,6 @@ class MenuWheel:
             self.layer.draw_circle(button.location, button.color, circle_size)
 
     def __select_eraser(self, button):
-        # TODO: Write docstring for method
         if self.current_tool != "ERASE":
             self.__clear_active_tool_button()
 
@@ -83,7 +78,6 @@ class MenuWheel:
             self.current_tool = "ERASE"
 
     def __select_drawer(self, button):
-        # TODO: Write docstring for method
         if self.current_tool != "DRAW":
             self.__clear_active_tool_button()
 
@@ -92,16 +86,13 @@ class MenuWheel:
             self.current_tool = "DRAW"
 
     def __select_wipe(self, button):
-        # TODO: Write docstring for method
         self.layer.hard_wipe()
 
     def __clear_active_tool_button(self):
-        # TODO: Write docstring for method
         for button in self.tool_buttons:
             button.active = False
 
     def __change_color(self, button: Button):
-        # TODO: Write docstring for method
         if self.current_tool != "ERASE":
             actual_color = button.color
 
@@ -123,7 +114,6 @@ class MenuWheel:
                     button.active = False
 
     def check_button_click(self, point: Point):
-        # TODO: Write docstring for method
         for button in self.color_buttons:
             if button.is_point_in_circle(point):
                 button.callback(button)
@@ -132,13 +122,11 @@ class MenuWheel:
                 button.callback(button)
 
     def open_menu(self):
-        # TODO: Write docstring for method
         self.is_open = True
         self.draw_buttons()
         pass
 
     def close_menu(self):
-        # TODO: Write docstring for method
         self.is_open = False
         self.layer.wipe()
         pass
