@@ -93,6 +93,12 @@ def main(config: Settings) -> int:
     camera.capture.release()
 
 
+def write_text(image, text):
+    cv2.putText(img=image, text=text, org=(50, 50),
+                fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=2)
+    cv2.getTextSize(text=text, fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, thickness=2)
+
+
 def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
                   point_on_canvas: Optional[Point], menu_wheel):
     camera.frame = cv2.cvtColor(camera.frame, cv2.COLOR_BGR2RGB)
