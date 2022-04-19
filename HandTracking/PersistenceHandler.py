@@ -26,6 +26,7 @@ class PersistenceHandler:
         """
         cls.file_handler.write(drawing)
 
+    # TODO: also make save as image
     @classmethod
     def save_drawing(cls, lines: list[tuple[list[int], list[Point]]]) -> None:
         """

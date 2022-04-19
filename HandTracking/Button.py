@@ -13,5 +13,4 @@ class Button:
         self.location = point
 
     def is_point_in_circle(self, point: Point) -> bool:
-        # TODO: Write docstring for method
         return pow(point.x - self.location.x, 2) + pow(point.y - self.location.y, 2) < pow(self.size / 2, 2)

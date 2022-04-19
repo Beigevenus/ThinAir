@@ -33,7 +33,6 @@ class Camera:
         cv2.namedWindow(self.name)
 
     def update_boundaries(self, bou_points):
-        # TODO: Write docstring for method
         self.boundary_points = bou_points
         min_x = min(self.boundary_points[0].x, self.boundary_points[1].x)
         min_y = min(self.boundary_points[0].y, self.boundary_points[1].y)
@@ -56,7 +55,7 @@ class Camera:
         """
         Retrieves the next frame from the camera input and, if successful, returns that.
 
-        :return: An N-dimensional array representing the next frame from the camera input
+        :return: An ndarray representing the next frame from the camera input
         """
         success, self.frame = self.capture.read()
         self.frame = cv2.flip(self.frame, 1)
@@ -99,8 +98,7 @@ class Camera:
         else:
             self.calibration_points.append(point)
 
-    def normalise_in_boundary(self, point) -> Optional[Point]:
-        # TODO: Write docstring for method
+    def normalise_in_boundary(self, point):
         if self.boundaries["x_max"] is not None:
             x_max: int = self.boundaries["x_max"]
             x_min: int = self.boundaries["x_min"]
@@ -150,9 +148,16 @@ class Camera:
         # TODO: Write docstring for method
         if not len(self.calibration_points) <= 3:
             self.ptm, self.warped_width, self.warped_height = fpt(self.get_expanded_corners(), width, height)
+            self.boundary_points.clear()
+            self.boundaries['x_min'] = int(self.warped_width * self.boundaries['x_min'])
+            self.boundaries['y_min'] = int(self.warped_height * self.boundaries['y_min'])
+            self.boundary_points.append(Point(self.boundaries['x_min'], self.boundaries['y_min']))
+            self.boundaries['x_max'] = int(self.warped_width - self.boundaries['x_min'])
+            self.boundaries['y_max'] = int(self.warped_height - self.boundaries['y_min'])
+            self.boundary_points.append(Point(self.boundaries['x_max'], self.boundaries['y_max']))
+
 
     def get_expanded_corners(self):
-        # TODO: Write docstring for method
         min_x = min(self.sorted_calibration_points[0].x, self.sorted_calibration_points[3].x)
         min_y = min(self.sorted_calibration_points[0].y, self.sorted_calibration_points[1].y)
         max_x = max(self.sorted_calibration_points[1].x, self.sorted_calibration_points[2].x)
@@ -167,21 +172,27 @@ class Camera:
         if aspect_ratio_outer > aspect_ratio_inner:
             target_resolution = (inner_width * (self.height / inner_height), self.height)
             offset_width = (target_resolution[0] - inner_width) / 2
+            self.boundaries["x_min"] = offset_width/target_resolution[0]
             # if min_x - offset_width > 0:
             offset_width = min_x - offset_width
             # else:
             #     offset_width = 0
+            offset_height = 0
             offset_height = (target_resolution[1] - inner_height) / 2
+            self.boundaries["y_min"] = offset_height/target_resolution[1]
             # if min_y - offset_height > 0:
             offset_height = min_y - offset_height
         else:
             target_resolution = (self.width, inner_height * (self.width / inner_width))
+            offset_width = 0
             offset_height = (target_resolution[1] - inner_height) / 2
+            self.boundaries["y_min"] = offset_height/target_resolution[1]
             # if min_y - offset_height > 0:
             offset_height = min_y - offset_height
             # else:
             #     offset_height = 0
             offset_width = (target_resolution[0] - inner_width) / 2
+            self.boundaries["x_min"] = offset_width/target_resolution[0]
             # if min_x - offset_width > 0:
             offset_width = min_x - offset_width
 
@@ -239,10 +250,16 @@ class Camera:
 
         return [left_top, right_top, right_bot, left_bot]
 
+    def transform_point(self, point, width, height) -> Point:
+        # TODO: Write docstring for method
+        # corrected_coordinates = np.matmul(self.ptm, [point.x, point.y, 1])
+
+        return Point(round(point.x * width), round(point.y * height))
+
     # TODO: Reconsider the location of this method
     def convert_point_to_res(self, point: Point) -> Point:
         # TODO: If needed add limit and round to the x and y
-        # TODO: Write docstring for method
+        # TODO: Add docstring
         return Point(point.x * self.width, point.y * self.height)
 
     def calibration_is_done(self) -> bool:

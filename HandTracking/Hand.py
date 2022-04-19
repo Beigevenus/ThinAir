@@ -17,10 +17,10 @@ class Hand:
 
     def update(self, landmarks) -> None:
         """
-        Given hand landmarks from MediaPipe, this method updates the position of each of the Finger objects pertaining
+        Given hand landmarks from Mediapipe, this method updates the position of each of the Finger objects pertaining
         to the hand.
 
-        :param landmarks: Hand landmarks from MediaPipe
+        :param landmarks: Hand landmarks from Mediapipe
         """
         self.wrist = Point.from_landmark(landmarks.landmark[self.mp_hand.HandLandmark.WRIST])
         # TODO: Make thumb great again
@@ -61,17 +61,16 @@ class Hand:
             points.append(finger.dip)
 
         wrist = self.wrist
-        index_mcp = self.fingers["INDEX_FINGER"].mcp
-        pinky_mcp = self.fingers["PINKY"].mcp
+        imcp = self.fingers["INDEX_FINGER"].mcp
+        pmcp = self.fingers["PINKY"].mcp
 
-        points.append(Point((index_mcp.x + wrist.x) / 2, (index_mcp.y + wrist.y) / 2))
-        points.append(Point((pinky_mcp.x + wrist.x) / 2, (pinky_mcp.y + wrist.y) / 2))
+        points.append(Point((imcp.x + wrist.x) / 2, (imcp.y + wrist.y) / 2))
+        points.append(Point((pmcp.x + wrist.x) / 2, (pmcp.y + wrist.y) / 2))
 
         points.append(self.wrist)
         return points
 
     def get_hand_sign(self, camera_frame, landmarks) -> str:
-        # TODO: Write docstring for method
         return self.keypoint_classifier.get_hand_sign(camera_frame, landmarks)
 
     class Finger:
