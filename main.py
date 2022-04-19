@@ -29,6 +29,7 @@ def main(config: Settings) -> int:
     drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
     white_screen = np.full(shape=[480, 720, 4], fill_value=[255, 255, 255, 255], dtype=np.uint8)
+    write_text(white_screen, "To calibrate the camera, please press the corners of the screen in the camera window", 720)
     hand: Hand = Hand(mp_hand)
     canvas: Canvas = Canvas("Canvas", config.monitor.width, config.monitor.height)
     canvas.move_window(config.monitor.x, config.monitor.y)
@@ -78,7 +79,6 @@ def main(config: Settings) -> int:
             else:
                 cv2.imshow(canvas.name, white_screen)
 
-
         # TODO: Save the black spots so we can remember the last seen hand position
 
         status = check_key_presses(canvas, camera)
@@ -93,10 +93,24 @@ def main(config: Settings) -> int:
     camera.capture.release()
 
 
-def write_text(image, text):
-    cv2.putText(img=image, text=text, org=(50, 50),
-                fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=2)
-    cv2.getTextSize(text=text, fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, thickness=2)
+def write_text(image, text, width):
+    words = text.split(" ")
+    lines = 0
+    while words:
+        num_of_words = len(words)
+        for i in range(len(words)):
+            if i == num_of_words-1:
+                cv2.putText(img=image, text=" ".join(words), org=(50, 50+(25*lines)),
+                            fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8, color=(0, 0, 0), thickness=2)
+                words = []
+                lines += 1
+                break
+            elif cv2.getTextSize(text=" ".join(words[0:i+2]), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8, thickness=2)[0][0] > width-100:
+                cv2.putText(img=image, text=" ".join(words[0:i+1]), org=(50, 50+(25*lines)),
+                            fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8, color=(0, 0, 0), thickness=2)
+                words = words[i+1:]
+                lines += 1
+                break
 
 
 def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
