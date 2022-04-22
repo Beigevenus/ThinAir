@@ -70,6 +70,8 @@ This can be done using the following command:
 python setup.py build_ext
 ```
 
+This will generate a `build` folder, which contains the appropriate compiled `.pyd` (Windows) or `.so` (Linux) file. To utilize this in the project, overwrite the existing `.pyd` or `.so` file in the `bezier` package with this newly compiled file.
+
 ### Hand Pose Recognition Model
 The `hand_pose_recognizer` package contains our trained model for recognizing the supported hand poses. For this training, we have utilized the following project: [Hand Gesture Recognition using MediaPipe](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe).
 If one wishes to extend or change the supported hand poses, we recommend also utilizing said repository.
