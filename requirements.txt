@@ -7,3 +7,4 @@ tensorflow~=2.8.0
 pillow~=9.0.1
 setuptools~=57.0.0
 Cython~=0.29.28
+opencv-contrib-python~=4.5.5.64

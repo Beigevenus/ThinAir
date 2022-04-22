@@ -21,4 +21,4 @@ class Button:
         return pow(point.x - self.location.x, 2) + pow(point.y - self.location.y, 2) < pow(self.size / 2, 2)
 
     def set_icon(self, icon: str):
-        self.icon = cv2.imread("HandTracking/Icons/{img_name}".format(img_name=icon), -1)
+        self.icon = cv2.imread("menu_wheel/resources/{img_name}".format(img_name=icon), -1)
