@@ -3,20 +3,19 @@ from typing import Optional
 
 import numpy as np
 
-from HandTracking.ConfigHandler import ConfigHandler
-from HandTracking.PersistenceHandler import PersistenceHandler
-from HandTracking.Point import Point
-from HandTracking.Canvas import Canvas
-from HandTracking.Hand import Hand
-from HandTracking.Camera import Camera
-from HandTracking.Settings import run_settings as run_settings, Settings
-from HandTracking.MenuWheel import MenuWheel
+from persistence.ConfigHandler import ConfigHandler
+from persistence.PersistenceHandler import PersistenceHandler
+from model.Point import Point
+from model.Canvas import Canvas
+from model.Hand import Hand
+from model.Camera import Camera
+from model.Settings import run_settings as run_settings, Settings
+from menu_wheel.MenuWheel import MenuWheel
 
 import cv2
 import mediapipe as mp
 
 # import cProfile
-import bezier
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -29,7 +28,8 @@ def main(config: Settings) -> int:
     drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
     white_screen = np.full(shape=[480, 720, 4], fill_value=[255, 255, 255, 255], dtype=np.uint8)
-    write_text(white_screen, "To calibrate the camera, please press the corners of the screen in the camera window", 720)
+    write_text(white_screen, "To calibrate the camera, please press the corners of the screen in the camera window",
+               720)
     hand: Hand = Hand(mp_hand)
     canvas: Canvas = Canvas("Canvas", config.monitor.width, config.monitor.height)
     canvas.move_window(config.monitor.x, config.monitor.y)
@@ -105,7 +105,8 @@ def write_text(image, text, width):
                 words = []
                 lines += 1
                 break
-            elif cv2.getTextSize(text=" ".join(words[0:i+2]), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8, thickness=2)[0][0] > width-100:
+            elif cv2.getTextSize(text=" ".join(words[0:i+2]), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8,
+                                 thickness=2)[0][0] > width-100:
                 cv2.putText(img=image, text=" ".join(words[0:i+1]), org=(50, 50+(25*lines)),
                             fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8, color=(0, 0, 0), thickness=2)
                 words = words[i+1:]
@@ -251,6 +252,7 @@ def draw_hand_landmarks(hand_landmarks, frame) -> None:
         mp_hand.HAND_CONNECTIONS,
         mp_drawing_styles.get_default_hand_landmarks_style(),
         mp_drawing_styles.get_default_hand_connections_style())
+
 
 def other_main_stuff():
     startup_dict: dict = ConfigHandler.load_startup_settings()

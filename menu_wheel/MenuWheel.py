@@ -1,6 +1,6 @@
-from HandTracking.Button import Button
-from HandTracking.Canvas import Canvas
-from HandTracking.Point import Point
+from menu_wheel.Button import Button
+from model.Canvas import Canvas
+from model.Point import Point
 
 
 class MenuWheel:
@@ -21,9 +21,9 @@ class MenuWheel:
 
     def initialize_buttons(self):
         # TODO: Write docstring for method
-        self.add_tool_button(self.__select_eraser, "ERASE", img="eraser.png")
-        self.add_tool_button(self.__select_drawer, "DRAW", img="brush.png")
-        self.add_tool_button(self.__select_wipe, "WIPE", img="wipe.png")
+        self.add_tool_button(self.__select_eraser, "ERASE", img="resources/eraser.png")
+        self.add_tool_button(self.__select_drawer, "DRAW", img="resources/brush.png")
+        self.add_tool_button(self.__select_wipe, "WIPE", img="resources/wipe.png")
 
         for name, color in self.color_palette.items():
             self.add_color_button(self.__change_color, color)

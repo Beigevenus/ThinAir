@@ -11,7 +11,7 @@ import tensorflow as tf
 class KeyPointClassifier(object):
     def __init__(
         self,
-        model_path='HandTracking/keypoint_classifier/keypoint_classifier.tflite',
+        model_path='keypoint_classifier/keypoint_classifier.tflite',
         num_threads=1,
     ):
         self.interpreter = tf.lite.Interpreter(model_path=model_path,
@@ -21,7 +21,7 @@ class KeyPointClassifier(object):
         self.input_details = self.interpreter.get_input_details()
         self.output_details = self.interpreter.get_output_details()
 
-        with open('HandTracking/keypoint_classifier/keypoint_classifier_label.csv',
+        with open('keypoint_classifier/keypoint_classifier_label.csv',
                   encoding='utf-8-sig') as f:
             self.keypoint_classifier_labels = csv.reader(f)
             self.keypoint_classifier_labels = [

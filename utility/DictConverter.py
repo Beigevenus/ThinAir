@@ -1,4 +1,4 @@
-from HandTracking.Point import Point
+from model.Point import Point
 
 
 class DictConverter:

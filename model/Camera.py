@@ -3,9 +3,9 @@ from typing import Optional
 from cv2 import VideoCapture
 from numpy import ndarray
 
-from HandTracking.ConfigHandler import ConfigHandler
-from HandTracking.Point import Point
-from HandTracking.image_wrap import four_point_transform as fpt
+from persistence.ConfigHandler import ConfigHandler
+from model.Point import Point
+from utility.image_wrap import four_point_transform as fpt
 
 import cv2
 
@@ -155,7 +155,6 @@ class Camera:
             self.boundaries['x_max'] = int(self.warped_width - self.boundaries['x_min'])
             self.boundaries['y_max'] = int(self.warped_height - self.boundaries['y_min'])
             self.boundary_points.append(Point(self.boundaries['x_max'], self.boundaries['y_max']))
-
 
     def get_expanded_corners(self):
         min_x = min(self.sorted_calibration_points[0].x, self.sorted_calibration_points[3].x)

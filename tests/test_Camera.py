@@ -1,7 +1,7 @@
 from typing import Optional
 
-from HandTracking.Camera import Camera
-from HandTracking.Point import Point
+from model.Camera import Camera
+from model.Point import Point
 import pytest
 
 x_fail = pytest.mark.xfail

@@ -3,8 +3,8 @@ import json
 from screeninfo import get_monitors, Monitor
 import tkinter as tk
 import tkinter.ttk as ttk
-from HandTracking.Camera import Camera
-from HandTracking.ConfigHandler import ConfigHandler
+from model.Camera import Camera
+from persistence.ConfigHandler import ConfigHandler
 
 
 class Settings:

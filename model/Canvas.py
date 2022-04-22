@@ -5,10 +5,10 @@ import cv2
 import numpy as np
 from numpy import ndarray
 
-from HandTracking.Camera import Camera
-from HandTracking.PersistenceHandler import PersistenceHandler
-from HandTracking.Point import Point
-import bezier as bz
+from model.Camera import Camera
+from persistence.PersistenceHandler import PersistenceHandler
+from model.Point import Point
+from c_modules.bezier import split_line
 
 
 class Canvas:
@@ -20,7 +20,8 @@ class Canvas:
 
         self.color: list[int] = [150, 150, 150, 255]
 
-        self.line_array: list[list[list[tuple[list[int], list[Point]]]]] = [[[] for y in range(self.height)] for x in range(self.width)]
+        self.line_array: list[list[list[tuple[list[int], list[Point]]]]] = [[[] for _ in range(self.height)]
+                                                                            for _ in range(self.width)]
         self.lines: list[tuple[list[int], list[Point]]] = PersistenceHandler.load_drawing()
         self.new_line()
         self.update_line_array()
@@ -68,7 +69,7 @@ class Canvas:
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
             if len(self.lines) > 1:
-                newest_points = bz.split_line(self.lines[-2][1])
+                newest_points = split_line(self.lines[-2][1])
 
                 # TODO: FIX problem with index out of range when drawing on the edge
                 self.lines[-2] = (self.lines[-2][0], [Point(x, y) for x, y in newest_points])

@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from numpy import ndarray
 
-from HandTracking.Point import Point
+from model.Point import Point
 
 
 def four_point_transform(points: list[Point], width: int, height: int):

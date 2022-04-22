@@ -1,8 +1,8 @@
 from typing import Optional, List
 
-from HandTracking.DictConverter import DictConverter
-from HandTracking.JsonHandler import JsonHandler
-from HandTracking.Point import Point
+from utility.DictConverter import DictConverter
+from persistence.JsonHandler import JsonHandler
+from model.Point import Point
 
 
 class ConfigHandler:

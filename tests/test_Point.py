@@ -1,4 +1,4 @@
-from HandTracking.Point import Point
+from model.Point import Point
 import pytest
 
 x_fail = pytest.mark.xfail
