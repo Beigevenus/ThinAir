@@ -35,3 +35,22 @@ cpdef list[list[float]] bezier_curve(list points):
 
 
     return curve
+
+cpdef list[list[float]] split_line(list line):
+    cdef list points = [[point.x, point.y] for point in line]
+    cdef list new_points = []
+    cdef int magic_number = 120
+    cdef int magic_number2 = 5
+    while len(points):
+        if len(points) > magic_number:
+            new_points.append(points[:magic_number])
+            points = points[magic_number-magic_number2:]
+        else:
+            if len(new_points):
+                for point in points:
+                    new_points[-1].append(point)
+            else:
+                new_points = [points]
+            break
+    new_points = [bezier_curve(points) for points in new_points]
+    return [point for points in new_points for point in points]

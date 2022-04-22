@@ -48,12 +48,15 @@ class Canvas:
     def check_for_overlap(self, points):
         found = False
         for point in points:
-            if self.line_array[point.x][point.y]:
-                lines = copy.deepcopy(self.lines)
-                for line in lines:
-                    if point in line:
-                        self.lines.remove(line)
-                found = True
+            try:
+                if self.line_array[point.x][point.y]:
+                    lines = copy.deepcopy(self.lines)
+                    for line in lines:
+                        if point in line:
+                            self.lines.remove(line)
+                    found = True
+            except IndexError:
+                pass
 
         return found
 
@@ -65,11 +68,15 @@ class Canvas:
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
             if len(self.lines) > 1:
-                points = [[point.x, point.y] for point in self.lines[-2][1]]
-                new_points = bz.bezier_curve(points)
-                self.lines[-2] = (self.lines[-2][0], [Point(x, y) for x, y in new_points])
+                newest_points = bz.split_line(self.lines[-2][1])
+
+                # TODO: FIX problem with index out of range when drawing on the edge
+                self.lines[-2] = (self.lines[-2][0], [Point(x, y) for x, y in newest_points])
                 for point in self.lines[-2][1]:
-                    self.line_array[int(point.x)][int(point.y)].append(self.lines[-2])
+                    try:
+                        self.line_array[int(point.x)][int(point.y)].append(self.lines[-2])
+                    except IndexError:
+                        pass
 
     def remove_excess_line(self):
         if self.lines[-1][1]:
