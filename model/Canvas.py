@@ -8,7 +8,7 @@ from numpy import ndarray
 from model.Camera import Camera
 from persistence.PersistenceHandler import PersistenceHandler
 from model.Point import Point
-from c_modules.bezier import split_line
+from bezier.bezier import split_line
 
 
 class Canvas:

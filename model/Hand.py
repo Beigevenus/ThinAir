@@ -1,7 +1,7 @@
 from typing import Optional
 
 from model.Point import Point
-from keypoint_classifier.keypoint_classifier import KeyPointClassifier
+from hand_pose_recognizer.keypoint_classifier import KeyPointClassifier
 
 
 class Hand:
