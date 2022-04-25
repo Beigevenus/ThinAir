@@ -8,6 +8,5 @@ venv
 config.json
 drawing.json
 bezier.o
-/Bezier/
 *.dat
 *.prof
