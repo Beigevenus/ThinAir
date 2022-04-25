@@ -8,6 +8,7 @@ x_fail = pytest.mark.xfail
 
 
 class TestCamera:
+    # TODO: Fix test case. The expected output is different from when the test case was originally implemented
     @pytest.mark.parametrize('point1, point2, point3, point4, expected_order',
                              [(Point(10, 11), Point(50, 0), Point(70, 85), Point(20, 120),
                                [Point(10, 11), Point(50, 0), Point(70, 85), Point(20, 120)]),
@@ -60,6 +61,7 @@ class TestCamera:
         camera.height = 500
         camera.boundary_points = []
         camera.boundaries = {"x_min": None, "x_max": None, "y_min": None, "y_max": None}
+        # TODO: The following statement creates a config.json file, fix this
         camera.update_calibration_point(Point(20, 20), 0, 0)
         camera.update_calibration_point(Point(400, 400), 0, 0)
 
@@ -76,21 +78,6 @@ class TestCamera:
     # TODO: Write test case
     def test_transform_point(self):
         pass
-
-    @pytest.mark.parametrize("point, expected_point", [(Point(0, 0), Point(0, 0)),
-                                                       (Point(32, 7), Point(40960, 5040)),
-                                                       (Point(-2, -8), Point(-2560, -5760))])
-    def test_convert_point_to_res(self, point, expected_point):
-        # Arrange
-        camera: Camera = Camera.__new__(Camera)
-        camera.width = 1280
-        camera.height = 720
-
-        # Act
-        actual = camera.convert_point_to_res(point)
-
-        # Assert
-        assert actual == expected_point
 
     @pytest.mark.parametrize("cal_points, expected", [([], False),
                                                       ([Point(0, 0)], False),

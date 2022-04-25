@@ -28,7 +28,8 @@ class Canvas:
 
         cv2.namedWindow(self.name, cv2.WINDOW_NORMAL)
 
-    def update_line_array(self):
+    def update_line_array(self) -> None:
+        # TODO: Write docstring for method
         for line in self.lines:
             for point in line[1]:
                 self.line_array[int(point.x)][int(point.y)].append(line)
@@ -39,18 +40,20 @@ class Canvas:
         """
         self.image: ndarray = np.full(shape=[self.height, self.width, 4], fill_value=[0, 0, 0, 0], dtype=np.uint8)
 
-    def hard_wipe(self):
+    def hard_wipe(self) -> None:
+        # TODO: Write docstring for method
         if len(self.lines) > 1:
             self.image: ndarray = np.full(shape=[self.height, self.width, 4], fill_value=[0, 0, 0, 0], dtype=np.uint8)
             self.line_array = list(map(list, map(list, self.line_array)))
             self.lines = []
             self.new_line(force=True)
 
-    def check_for_overlap(self, points):
-        found = False
+    def check_for_overlap(self, points: list[Point]) -> bool:
+        # TODO: Write docstring for method
+        found: bool = False
         for point in points:
             try:
-                if self.line_array[point.x][point.y]:
+                if self.line_array[int(point.x)][int(point.y)]:
                     lines = copy.deepcopy(self.lines)
                     for line in lines:
                         if point in line:
@@ -61,7 +64,8 @@ class Canvas:
 
         return found
 
-    def new_line(self, force=False):
+    def new_line(self, force: bool = False) -> None:
+        # TODO: Write docstring for method
         if force:
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
@@ -71,7 +75,7 @@ class Canvas:
             if len(self.lines) > 1:
                 newest_points = split_line(self.lines[-2][1])
 
-                # TODO: FIX problem with index out of range when drawing on the edge
+                # TODO: Confirm that the following is fixed: problem with index out of range when drawing on the edge
                 self.lines[-2] = (self.lines[-2][0], [Point(x, y) for x, y in newest_points])
                 for point in self.lines[-2][1]:
                     try:
@@ -79,18 +83,20 @@ class Canvas:
                     except IndexError:
                         pass
 
-    def remove_excess_line(self):
+    def remove_excess_line(self) -> None:
+        # TODO: Write docstring for method
         if self.lines[-1][1]:
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
 
-    def add_point(self, point):
+    def add_point(self, point: Point) -> None:
+        # TODO: Write docstring for method
         if point:
             self.lines[-1][1].append(point)
-            # self.line_array[int(point.x)][int(point.y)].append(self.lines[-1])
 
-    def draw(self):
-        size = 3
+    def draw(self) -> None:
+        # TODO: Write docstring for method
+        size: int = 3
         for color, line in self.lines:
             if line:
                 previous_point = line[0]
@@ -99,17 +105,19 @@ class Canvas:
                     self.draw_line(previous_point, point, color, size)
                     previous_point = point
 
-    def erase(self, point, size):
+    def erase(self, point: Point, size: int) -> None:
+        # TODO: Write docstring for method
         start_point_x_y = (point.x-size, point.y-size)
         for x in range(size*2):
             if self.width > (start_point_x_y[0] + x) >= 0:
                 for y in range(size*2):
                     if self.height > (start_point_x_y[1] + y) >= 0:
-                        if self.line_array[start_point_x_y[0] + x][start_point_x_y[1] + y]:
-                            for line in self.line_array[start_point_x_y[0] + x][start_point_x_y[1] + y]:
+                        if self.line_array[int(start_point_x_y[0] + x)][int(start_point_x_y[1] + y)]:
+                            for line in self.line_array[int(start_point_x_y[0] + x)][int(start_point_x_y[1] + y)]:
                                 self.delete_line(line)
 
-    def delete_line(self, line):
+    def delete_line(self, line) -> None:
+        # TODO: Write docstring for method
         for point in line[1]:
             self.line_array[int(point.x)][int(point.y)].remove(line)
         try:
@@ -148,99 +156,8 @@ class Canvas:
 
         cv2.circle(self.image, (int(point.x), int(point.y)), size, color, cv2.FILLED)
 
-    # def create_layer(self, name: str, colors: dict[str, list[int]] = None, position: int = -1) -> None:
-    #     """
-    #     Creates a new Layer object and adds it to the canvas' list of layers, at the specified position.
-    #
-    #     :param name: The name of the layer
-    #     :param colors: The additional colors to add to the layer's color palette
-    #     :param position: The position of the layer in the order of layers
-    #     """
-    #     if colors:
-    #         actual_colors = colors
-    #     else:
-    #         actual_colors = {}
-    #
-    #     try:
-    #         if position == -1:
-    #             self.layers.append((name, Layer(self.width, self.height, actual_colors)))
-    #         else:
-    #             self.layers.insert(position, (name, Layer(self.width, self.height, actual_colors)))
-    #     except IndexError:
-    #         self.layers.append((name, Layer(self.width, self.height, actual_colors)))
-
-    # def delete_layer(self, name: str) -> None:
-    #     """
-    #     Removes the specified layer from the list of layers.
-    #
-    #     :param name: The name of the layer to remove
-    #     """
-    #     layer: tuple[str, Layer] = self.__find_layer(name)
-    #
-    #     if layer:
-    #         self.layers.remove(layer)
-    #
-    # def get_layer(self, name: str) -> Optional[Layer]:
-    #     """
-    #     Returns a reference to a Layer object given its name if it exists in the list of layers.
-    #
-    #     :param name: The name of the layer to get the reference of
-    #     :return: A reference to the layer matching the specified name, or None if it doesn't exist
-    #     """
-    #     layer: tuple[str, Layer] = self.__find_layer(name)
-    #
-    #     if layer:
-    #         return self.__find_layer(name)[1]
-    #     else:
-    #         return None
-    #
-    # def __find_layer(self, name: str) -> Optional[tuple[str, Layer]]:
-    #     """
-    #     Returns a tuple containing a layer's name and object reference given its name.
-    #
-    #     :param name: The name of the layer to find
-    #     :return: A tuple containing the name and object reference of the layer, or None if it doesn't exist
-    #     """
-    #     for layer_name, layer in self.layers:
-    #         if name == layer_name:
-    #             return layer_name, layer
-    #     return None
-    #
-    # def combine_layers(self) -> ndarray:
-    #     """
-    #     Merges all layers in the list of layers together, to create *one* layer containing the images of all combined
-    #     layers.
-    #
-    #     :return: An ndarray representing the image of the merged layers
-    #     """
-    #     combined_image: ndarray = np.zeros(shape=[self.height, self.width, 4], dtype=np.uint8)
-    #
-    #     for name, layer in self.layers[::-1]:
-    #         src_a: ndarray = layer.image[..., 3] > 0
-    #
-    #         combined_image[src_a] = layer.image[src_a]
-    #
-    #     return combined_image
-
-    # def resize(self, width: int, height: int) -> None:
-    #     """
-    #     Changes the width and height of the canvas resolution and its layers to the given lengths.
-    #
-    #     :param width: The desired width
-    #     :param height: The desired height
-    #     """
-    #     if width <= 0 or height <= 0:
-    #         raise ValueError("Width and height of a resized canvas must be larger than 0.")
-    #
-    #     # for name, layer in self.layers:
-    #     #     layer.width = width
-    #     #     layer.height = height
-    #     self.image = cv2.resize(self.image, (width, height), interpolation=cv2.INTER_AREA)
-    #
-    #     self.width = width
-    #     self.height = height
-
-    def draw_img(self, img, size: int, pos: Point):
+    def draw_img(self, img, size: int, pos: Point) -> None:
+        # TODO: Write docstring for method
         size = int(size*sqrt(2))
         s_img = img
         s_img = cv2.resize(s_img, (size, size))
@@ -272,17 +189,6 @@ class Canvas:
         Updates the shown canvas in its window.
         """
         cv2.imshow(self.name, cv2.flip(self.image, 1))
-        # self.__check_for_resize()
-
-    # def __check_for_resize(self) -> None:
-    #     """
-    #     Checks if the dimensions of the canvas window has changed and update its resolution accordingly.
-    #     """
-    #     width: int
-    #     height: int
-    #     width, height = cv2.getWindowImageRect(self.name)[2:]
-    #     if width != self.width or height != self.height:
-    #         self.resize(width, height)
 
     def fullscreen(self) -> None:
         """
@@ -298,29 +204,3 @@ class Canvas:
         :param offset_y: The number of pixels to move the window in the vertical plane
         """
         cv2.moveWindow(self.name, offset_x, offset_y)
-
-    # TODO: Remove when it is no longer necessary
-    def print_calibration_cross(self, camera: Camera) -> None:
-        """
-        TEMPORARY METHOD: Creates the calibration cross drawing on the CAL_CROSS layer.
-
-        :param camera: A reference to the camera
-        """
-        color: str = "WHITE"
-        size: int = 5
-
-        # print("top left:")
-        top_left = camera.transform_point(Point(0, 0), self.width, self.height)
-        # print(int(top_left.x), int(top_left.y))
-
-        # print("top right:")
-        top_right = camera.transform_point(Point(0, 1), self.width, self.height)
-        # print(int(top_right.x), int(top_right.y))
-
-        # print("bot left:")
-        bot_left = camera.transform_point(Point(1, 0), self.width, self.height)
-        # print(int(bot_left.x), int(bot_left.y))
-
-        # print("bot right:")
-        bot_right = camera.transform_point(Point(1, 1), self.width, self.height)
-        # print(int(bot_right.x), int(bot_right.y))

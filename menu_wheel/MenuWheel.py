@@ -19,8 +19,10 @@ class MenuWheel:
 
         self.initialize_buttons()
 
-    def initialize_buttons(self):
-        # TODO: Write docstring for method
+    def initialize_buttons(self) -> None:
+        """
+        Creates all tool and color buttons for the menu wheel, when first instantiated.
+        """
         self.add_tool_button(self.__select_eraser, "ERASE", img="eraser.png")
         self.add_tool_button(self.__select_drawer, "DRAW", img="brush.png")
         self.add_tool_button(self.__select_wipe, "WIPE", img="wipe.png")
@@ -28,23 +30,35 @@ class MenuWheel:
         for name, color in self.color_palette.items():
             self.add_color_button(self.__change_color, color)
 
-    def open(self):
-        pass
+    def add_tool_button(self, callback, tool: str, img: str = None) -> None:
+        """
+        Adds a new tool button to the menu wheel.
 
-    def add_tool_button(self, callback, tool, img=None):
-        # TODO: Write docstring for method
+        :param callback: The callback function to call when the button is "pressed"
+        :param tool: The name of the tool to add
+        :param img: The path of the image to display for the tool
+        """
         if self.current_tool == tool:
             self.tool_buttons.append(Button(callback, active=True, icon=img))
         else:
             self.tool_buttons.append(Button(callback, icon=img))
 
-    def add_color_button(self, callback, color):
+    def add_color_button(self, callback, color: str) -> None:
+        """
+        Adds a new color button to the menu wheel.
+
+        :param callback: The callback function to call when the button is "pressed"
+        :param color: The name of the color
+        """
         if self.drawing_color == color:
             self.color_buttons.append(Button(callback, color=color, active=True))
         else:
             self.color_buttons.append(Button(callback, color=color))
 
-    def draw_buttons(self):
+    def draw_buttons(self) -> None:
+        """
+        Draws the buttons on the canvas, in the top left corner.
+        """
         top_left = Point(self.layer.width, 0)
         circle_size = round(self.layer.width * 0.03)
 
@@ -74,7 +88,12 @@ class MenuWheel:
 
             self.layer.draw_circle(button.location, button.color, circle_size)
 
-    def __select_eraser(self, button):
+    def __select_eraser(self, button: Button) -> None:
+        """
+        Selects the eraser tool.
+
+        :param button: The eraser Button object
+        """
         if self.current_tool != "ERASE":
             self.__clear_active_tool_button()
 
@@ -83,7 +102,12 @@ class MenuWheel:
             # self.drawing_color = "ERASER"
             self.current_tool = "ERASE"
 
-    def __select_drawer(self, button):
+    def __select_drawer(self, button: Button) -> None:
+        """
+        Selects the drawing tool.
+
+        :param button: The drawing Button object
+        """
         if self.current_tool != "DRAW":
             self.__clear_active_tool_button()
 
@@ -91,14 +115,27 @@ class MenuWheel:
             self.drawing_color = self.prev_drawing_color
             self.current_tool = "DRAW"
 
-    def __select_wipe(self, button):
+    def __select_wipe(self, button: Button) -> None:
+        """
+        Performs a wipe of the canvas.
+
+        :param button: (Unused)
+        """
         self.layer.hard_wipe()
 
-    def __clear_active_tool_button(self):
+    def __clear_active_tool_button(self) -> None:
+        """
+        Sets all tool button statuses to inactive.
+        """
         for button in self.tool_buttons:
             button.active = False
 
-    def __change_color(self, button: Button):
+    def __change_color(self, button: Button) -> None:
+        """
+        Changes the current drawing color.
+
+        :param button: The color button that has been selected
+        """
         if self.current_tool != "ERASE":
             actual_color = button.color
 
@@ -119,7 +156,12 @@ class MenuWheel:
                 else:
                     button.active = False
 
-    def check_button_click(self, point: Point):
+    def check_button_click(self, point: Point) -> None:
+        """
+        Determines whether a button has been "clicked" and calls the appropriate callback function.
+
+        :param point: The position of the cursor
+        """
         for button in self.color_buttons:
             if button.is_point_in_circle(point):
                 button.callback(button)
@@ -127,13 +169,16 @@ class MenuWheel:
             if button.is_point_in_circle(point):
                 button.callback(button)
 
-    def open_menu(self):
+    def open_menu(self) -> None:
+        """
+        Opens the menu wheel.
+        """
         self.is_open = True
         self.draw_buttons()
-        pass
 
-    def close_menu(self):
+    def close_menu(self) -> None:
+        """
+        Closes the menu wheel.
+        """
         self.is_open = False
         self.layer.wipe()
-        pass
-

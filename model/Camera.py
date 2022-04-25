@@ -12,7 +12,6 @@ import cv2
 
 class Camera:
     def __init__(self, calibration_points: list[Point], name: str = 'camera', camera: int = 0) -> None:
-        # TODO: Needs to be dynamically found
         self.capture: VideoCapture = cv2.VideoCapture(camera)
         self.calibration_points: list[Point] = calibration_points
         self.sorted_calibration_points: list[Point] = self.sort_calibration_points()
@@ -32,7 +31,8 @@ class Camera:
 
         cv2.namedWindow(self.name)
 
-    def update_boundaries(self, bou_points):
+    def update_boundaries(self, bou_points: list[Point]) -> None:
+        # TODO: Write docstring for method
         self.boundary_points = bou_points
         min_x = min(self.boundary_points[0].x, self.boundary_points[1].x)
         min_y = min(self.boundary_points[0].y, self.boundary_points[1].y)
@@ -55,7 +55,7 @@ class Camera:
         """
         Retrieves the next frame from the camera input and, if successful, returns that.
 
-        :return: An ndarray representing the next frame from the camera input
+        :return: An ndarray representing the next frame from the camera input, or None if it cannot be retrieved
         """
         success, self.frame = self.capture.read()
         self.frame = cv2.flip(self.frame, 1)
@@ -98,7 +98,8 @@ class Camera:
         else:
             self.calibration_points.append(point)
 
-    def normalise_in_boundary(self, point):
+    def normalise_in_boundary(self, point: Point) -> Optional[Point]:
+        # TODO: Write docstring for method
         if self.boundaries["x_max"] is not None:
             x_max: int = self.boundaries["x_max"]
             x_min: int = self.boundaries["x_min"]
@@ -156,7 +157,8 @@ class Camera:
             self.boundaries['y_max'] = int(self.warped_height - self.boundaries['y_min'])
             self.boundary_points.append(Point(self.boundaries['x_max'], self.boundaries['y_max']))
 
-    def get_expanded_corners(self):
+    def get_expanded_corners(self) -> list[Point]:
+        # TODO: Write docstring for method
         min_x = min(self.sorted_calibration_points[0].x, self.sorted_calibration_points[3].x)
         min_y = min(self.sorted_calibration_points[0].y, self.sorted_calibration_points[1].y)
         max_x = max(self.sorted_calibration_points[1].x, self.sorted_calibration_points[2].x)
@@ -208,8 +210,6 @@ class Camera:
             ((self.sorted_calibration_points[2].x - min_x) / inner_width) * target_resolution[0] + offset_width,
             ((self.sorted_calibration_points[2].y - min_y) / inner_height) * target_resolution[1] + offset_height)
 
-        print(rel_top_left, rel_top_right, rel_bot_right, rel_bot_left)
-
         return [rel_top_left, rel_top_right, rel_bot_right, rel_bot_left]
 
     def sort_calibration_points(self) -> list[Point]:
@@ -249,17 +249,10 @@ class Camera:
 
         return [left_top, right_top, right_bot, left_bot]
 
-    def transform_point(self, point, width, height) -> Point:
+    # TODO: Consider moving to Point class
+    def transform_point(self, point: Point, width: int, height: int) -> Point:
         # TODO: Write docstring for method
-        # corrected_coordinates = np.matmul(self.ptm, [point.x, point.y, 1])
-
         return Point(round(point.x * width), round(point.y * height))
-
-    # TODO: Reconsider the location of this method
-    def convert_point_to_res(self, point: Point) -> Point:
-        # TODO: If needed add limit and round to the x and y
-        # TODO: Add docstring
-        return Point(point.x * self.width, point.y * self.height)
 
     def calibration_is_done(self) -> bool:
         """

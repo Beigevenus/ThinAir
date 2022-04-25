@@ -66,14 +66,14 @@ class SettingsApp:
         self.label1.configure(text='Monitor')
         self.label1.pack(anchor='w', padx='10', side='top')
         self.selected_monitor = tk.StringVar()
-        self.Monitorbox = ttk.Combobox(self.toplevel1, textvariable=self.selected_monitor)
-        self.Monitorbox.pack(anchor='w', padx='10', side='top')
+        self.monitor_box = ttk.Combobox(self.toplevel1, textvariable=self.selected_monitor)
+        self.monitor_box.pack(anchor='w', padx='10', side='top')
         self.monitor_list = {}
         for idx, m in enumerate(get_monitors()):
             self.monitor_list["Display{num}".format(num=idx + 1)] = m
-        self.Monitorbox['values'] = list(self.monitor_list.keys())
-        self.Monitorbox.current(0)
-        self.Monitorbox['state'] = 'readonly'
+        self.monitor_box['values'] = list(self.monitor_list.keys())
+        self.monitor_box.current(0)
+        self.monitor_box['state'] = 'readonly'
 
         # webcam stuff
         self.active_cams = Camera.return_camera_indexes()
@@ -82,11 +82,11 @@ class SettingsApp:
         self.label2 = ttk.Label(self.toplevel1)
         self.label2.configure(text='Webcam')
         self.label2.pack(anchor='w', padx='10', side='top')
-        self.Webcambox = ttk.Combobox(self.toplevel1, textvariable=self.selected_cam)
-        self.Webcambox.pack(anchor='w', padx='10', side='top')
-        self.Webcambox['values'] = self.active_cams
-        self.Webcambox.current(0)
-        self.Webcambox['state'] = 'readonly'
+        self.webcam_box = ttk.Combobox(self.toplevel1, textvariable=self.selected_cam)
+        self.webcam_box.pack(anchor='w', padx='10', side='top')
+        self.webcam_box['values'] = self.active_cams
+        self.webcam_box.current(0)
+        self.webcam_box['state'] = 'readonly'
 
         # cancel button stuff
         self.Cancel = ttk.Button(self.toplevel1)
@@ -106,14 +106,14 @@ class SettingsApp:
         self.toplevel1.title('Settings')
 
         # Main widget
-        self.mainwindow = self.toplevel1
+        self.main_window = self.toplevel1
 
     def run(self) -> Settings:
         """
         Starts the settings window's loop.
-        :return:
+        :return: The applied settings
         """
-        self.mainwindow.mainloop()
+        self.main_window.mainloop()
 
         return self.appliedSettings
 
