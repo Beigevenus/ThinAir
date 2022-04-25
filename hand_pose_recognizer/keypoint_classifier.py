@@ -11,7 +11,7 @@ import tensorflow as tf
 class KeyPointClassifier(object):
     def __init__(
         self,
-        model_path='hand_pose_recognizer/hand_pose_recognizer.tflite',
+        model_path='hand_pose_recognizer/keypoint_classifier.tflite',
         num_threads=1,
     ):
         self.interpreter = tf.lite.Interpreter(model_path=model_path,
