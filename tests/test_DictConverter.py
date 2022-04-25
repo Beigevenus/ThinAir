@@ -1,7 +1,7 @@
 import pytest
 
-from HandTracking.DictConverter import DictConverter
-from HandTracking.Point import Point
+from utility.DictConverter import DictConverter
+from model.Point import Point
 
 x_fail = pytest.mark.xfail
 

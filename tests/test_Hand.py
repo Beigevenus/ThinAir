@@ -1,7 +1,7 @@
 import pytest
 
-from HandTracking.Hand import Hand
-from HandTracking.Point import Point
+from model.Hand import Hand
+from model.Point import Point
 
 x_fail = pytest.mark.xfail
 

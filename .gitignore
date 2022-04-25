@@ -7,3 +7,6 @@ __pycache__
 venv
 config.json
 drawing.json
+bezier.o
+*.dat
+*.prof
