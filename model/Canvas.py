@@ -39,6 +39,9 @@ class Canvas:
         Resets the values of all "pixels" in the layer, making them black.
         """
         self.image: ndarray = np.full(shape=[self.height, self.width, 4], fill_value=[0, 0, 0, 0], dtype=np.uint8)
+        cv2.rectangle(self.image, (0, 0),
+                      (self.width, self.height),
+                      [80, 80, 80], 10)
 
     def hard_wipe(self) -> None:
         # TODO: Write docstring for method
