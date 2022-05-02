@@ -2,6 +2,8 @@ from collections import namedtuple
 from typing import Optional
 
 import numpy as np
+import cv2
+import mediapipe as mp
 
 from persistence.ConfigHandler import ConfigHandler
 from persistence.PersistenceHandler import PersistenceHandler
@@ -12,18 +14,12 @@ from model.Camera import Camera
 from model.Settings import run_settings as run_settings, Settings
 from menu_wheel.MenuWheel import MenuWheel
 
-import cv2
-import mediapipe as mp
-
-# import cProfile
-
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hand = mp.solutions.hands
 
 
 def main(config: Settings) -> int:
-    # TODO: Remove when auto calibration is implemented
     drawing_point: Optional[Point] = None
     drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
@@ -44,7 +40,6 @@ def main(config: Settings) -> int:
                          Point(canvas.width - 1, canvas.height)], camera=config.camera)
 
     camera.update_image_ptm(canvas.width, canvas.height)
-    canvas.print_calibration_cross(camera)
     cv2.setMouseCallback(camera.name, lambda event, x, y, flags, param: mouse_click(camera, canvas.width,
                                                                                     canvas.height, event, x,
                                                                                     y))
@@ -71,8 +66,7 @@ def main(config: Settings) -> int:
         if counter % 2 == 0:
             canvas.wipe()
             canvas.draw()
-            drawing_point, point_on_canvas = analyse_frame(camera, hands, hand, canvas, drawing_point,
-                                                           drawing_precision, point_on_canvas,
+            drawing_point, point_on_canvas = analyse_frame(camera, hands, hand, canvas, drawing_point, point_on_canvas,
                                                            menu_wheel)
             if len(camera.boundary_points) > 1:
                 canvas.show()
@@ -93,7 +87,8 @@ def main(config: Settings) -> int:
     camera.capture.release()
 
 
-def write_text(image, text, width):
+def write_text(image, text: str, width: int) -> None:
+    # TODO: Write docstring for function
     words = text.split(" ")
     lines = 0
     while words:
@@ -114,20 +109,19 @@ def write_text(image, text, width):
                 break
 
 
-def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
-                  point_on_canvas: Optional[Point], menu_wheel):
+def analyse_frame(camera, hands, hand, canvas, drawing_point,
+                  point_on_canvas: Optional[Point], menu_wheel) -> tuple[Point, Point]:
+    # TODO: Write docstring for function
     camera.frame = cv2.cvtColor(camera.frame, cv2.COLOR_BGR2RGB)
 
     camera.frame.flags.writeable = False
     hand_position: namedtuple = hands.process(camera.frame)
     camera.frame.flags.writeable = True
 
-    # TODO: figure out the structure of the hand position and landmarks
     if hand_position.multi_hand_landmarks:
         for hand_landmarks, handedness in zip(hand_position.multi_hand_landmarks,
                                               hand_position.multi_handedness):
 
-            # TODO: Remove call when no longer needed. For debugging only
             # draw_hand_landmarks(hand_landmarks, camera.frame)
 
             hand.update(hand_landmarks)
@@ -141,16 +135,12 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
                         canvas.new_line(force=True)
                         menu_wheel.close_menu()
 
-                # TODO: Add erasing when working on the wheel
                 if hand_sign == "Pointer":
                     if menu_wheel.current_tool == "DRAW":
                         normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
                         if normalised_point is not None:
                             point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
 
-                        # drawing_point = get_next_drawing_point(point_on_canvas, drawing_point, drawing_precision)
-                        # if drawing_point is not None:
-                        #     canvas.add_point(drawing_point)
                         canvas.add_point(point_on_canvas)
                     else:
                         normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
@@ -192,7 +182,7 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point, drawing_precision,
     return drawing_point, point_on_canvas
 
 
-def check_key_presses(canvas, camera):
+def check_key_presses(canvas: Canvas, camera: Camera):
     # TODO: Write docstring for function
     # Exit program when Esc is pressed
     key = cv2.waitKey(1)
@@ -209,7 +199,7 @@ def check_key_presses(canvas, camera):
     return 0
 
 
-def mouse_click(camera, width, height, event, x, y) -> None:
+def mouse_click(camera: Camera, width: int, height: int, event, x: float, y: float) -> None:
     """
     Callback function for mouse clicks in the camera window.
     Left-clicking will update the calibration points.
@@ -254,7 +244,7 @@ def draw_hand_landmarks(hand_landmarks, frame) -> None:
         mp_drawing_styles.get_default_hand_connections_style())
 
 
-def other_main_stuff():
+if __name__ == "__main__":
     startup_dict: dict = ConfigHandler.load_startup_settings()
     settings: Optional[Settings] = None
 
@@ -267,15 +257,4 @@ def other_main_stuff():
     while running:
         settings = run_settings()
         running = main(settings)
-
-
-if __name__ == "__main__":
-    # cProfile.run('other_main_stuff()', "output.dat")
-    #
-    # import pstats
-    #
-    # with open("prof_out.prof", "w+") as f:
-    #     p = pstats.Stats("output.dat", stream=f)
-    #     p.sort_stats("cumtime").print_stats()
-    other_main_stuff()
 

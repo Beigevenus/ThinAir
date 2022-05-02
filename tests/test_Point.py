@@ -5,6 +5,7 @@ x_fail = pytest.mark.xfail
 
 
 class TestPoint:
+    # TODO: Fix test case. The expected output is different from when the test case was originally implemented
     @pytest.mark.parametrize("x1, y1, x2, y2, expected_distance", [(10, 23, 13, 7, 16.2788),
                                                                    (10, 23, 2, -5, 29.1204),
                                                                    (10, 23, -32, 0, 47.8853),

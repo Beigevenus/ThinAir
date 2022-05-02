@@ -18,7 +18,10 @@ class DictConverter:
 
     @classmethod
     def color_list_to_dict(cls, color_list: list[int]) -> dict:
-        return {"b": color_list[0], "g": color_list[1], "r": color_list[2]}
+        if color_list:
+            return {"b": color_list[0], "g": color_list[1], "r": color_list[2]}
+        else:
+            return {}
 
     @classmethod
     def line_tuple_to_dict(cls, line_tuple: tuple) -> dict:

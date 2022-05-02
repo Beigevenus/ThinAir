@@ -18,6 +18,12 @@ class Button:
         self.location = point
 
     def is_point_in_circle(self, point: Point) -> bool:
+        """
+        Determines whether a given point exists within the button's boundaries.
+
+        :param point: The point to check
+        :return: True if the point is within the button's boundaries, False if not
+        """
         return pow(point.x - self.location.x, 2) + pow(point.y - self.location.y, 2) < pow(self.size / 2, 2)
 
     def set_icon(self, icon: str):
