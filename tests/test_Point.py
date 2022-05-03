@@ -5,13 +5,12 @@ x_fail = pytest.mark.xfail
 
 
 class TestPoint:
-    # TODO: Fix test case. The expected output is different from when the test case was originally implemented
-    @pytest.mark.parametrize("x1, y1, x2, y2, expected_distance", [(10, 23, 13, 7, 16.2788),
-                                                                   (10, 23, 2, -5, 29.1204),
-                                                                   (10, 23, -32, 0, 47.8853),
-                                                                   (13, 7, 2, -5, 16.2788),
-                                                                   (13, 7, -32, 0, 45.5412),
-                                                                   (2, -5, -32, 0, 34.3657)])
+    @pytest.mark.parametrize("x1, y1, x2, y2, expected_distance", [(10, 23, 13, 7, 265),
+                                                                   (10, 23, 2, -5, 848),
+                                                                   (10, 23, -32, 0, 2293),
+                                                                   (13, 7, 2, -5, 265),
+                                                                   (13, 7, -32, 0, 2074),
+                                                                   (2, -5, -32, 0, 1181)])
     def test_distance_to(self, x1, y1, x2, y2, expected_distance):
         # Arrange
         point1: Point = Point(x1, y1)
@@ -35,5 +34,14 @@ class TestPoint:
         actual = point1.next_point_to(point2, precision)
 
         # Assert
-        print(point1.x, point1.y, actual.x, actual.y)
         assert actual == expected_point
+
+    @pytest.mark.parametrize("point, expected_list", [(Point(0, 0), [0, 0]),
+                                                      (Point(-73, -8), [-73, -8]),
+                                                      (Point(52, 842), [52, 842])])
+    def test_as_list(self, point, expected_list):
+        # Arrange & Act
+        actual = point.as_list()
+
+        # Assert
+        assert actual == expected_list

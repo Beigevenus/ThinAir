@@ -33,3 +33,7 @@ class TestDictConverter:
 
         # Assert
         assert dictionary == expected_dict
+
+    # TODO: Write test case
+    def test_line_tuple_to_dict(self):
+        pass

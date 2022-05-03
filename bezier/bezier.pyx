@@ -9,21 +9,21 @@ cpdef list[float] bezier(float t, list p1, list p2):
 cpdef list[list[float]] multi_points(float t, list points):
     
     cdef int i = 0
-    cdef list newpoints = []
+    cdef list new_points = []
 
     for i in range(0, len(points) - 1):
-        newpoints += [bezier(t, points[i], points[i + 1])]
+        new_points += [bezier(t, points[i], points[i + 1])]
 
-    return newpoints
+    return new_points
 
 cpdef list[float] single_point(float t, list points):
 
-    cdef list newpoints = points
+    cdef list new_points = points
 
-    while len(newpoints) > 1:
-        newpoints = multi_points(t, newpoints)
+    while len(new_points) > 1:
+        new_points = multi_points(t, new_points)
 
-    return newpoints[0]
+    return new_points[0]
 
 cpdef list[list[float]] bezier_curve(list points):
     cdef list curve = []

@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 from numpy import ndarray
 
-from model.Camera import Camera
 from persistence.PersistenceHandler import PersistenceHandler
 from model.Point import Point
 from bezier.bezier import split_line

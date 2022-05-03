@@ -14,7 +14,7 @@ class Button:
         if self.icon is not None:
             self.set_icon(self.icon)
 
-    def set_location(self, point: Point):
+    def set_location(self, point: Point) -> None:
         self.location = point
 
     def is_point_in_circle(self, point: Point) -> bool:
@@ -26,5 +26,5 @@ class Button:
         """
         return pow(point.x - self.location.x, 2) + pow(point.y - self.location.y, 2) < pow(self.size / 2, 2)
 
-    def set_icon(self, icon: str):
+    def set_icon(self, icon: str) -> None:
         self.icon = cv2.imread("menu_wheel/resources/{img_name}".format(img_name=icon), -1)

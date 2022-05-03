@@ -119,7 +119,7 @@ class MenuWheel:
         """
         Performs a wipe of the canvas.
 
-        :param button: (Unused)
+        :param button: (Unused, but necessary)
         """
         self.layer.hard_wipe()
 

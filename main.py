@@ -21,7 +21,6 @@ mp_hand = mp.solutions.hands
 
 def main(config: Settings) -> int:
     drawing_point: Optional[Point] = None
-    drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
     white_screen = np.full(shape=[480, 720, 4], fill_value=[255, 255, 255, 255], dtype=np.uint8)
     write_text(white_screen, "To calibrate the camera, please press the corners of the screen in the camera window",

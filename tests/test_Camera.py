@@ -8,7 +8,6 @@ x_fail = pytest.mark.xfail
 
 
 class TestCamera:
-    # TODO: Fix test case. The expected output is different from when the test case was originally implemented
     @pytest.mark.parametrize('point1, point2, point3, point4, expected_order',
                              [(Point(10, 11), Point(50, 0), Point(70, 85), Point(20, 120),
                                [Point(10, 11), Point(50, 0), Point(70, 85), Point(20, 120)]),
@@ -41,6 +40,7 @@ class TestCamera:
         assert camera.sorted_calibration_points[2] == expected_order[2]
         assert camera.sorted_calibration_points[3] == expected_order[3]
 
+    # TODO: All test cases fail. The implementation probably changed, so fix the test as well.
     @pytest.mark.parametrize('point1, expected',
                              [(Point(0.02, 0.03), None),
                               (Point(0.08, 0.10), Point(0.052631579, 0.078947368)),
@@ -52,7 +52,7 @@ class TestCamera:
                               (Point(0.80, 0.04), Point(1.00, 0.00)),
                               (Point(0.40, 0.40), Point(0.473684211, 0.473684211))
                               ])
-    def test_sort_calibration_points(self, point1: Point, expected: Optional[Point]):
+    def test_normalize_in_boundary(self, point1: Point, expected: Optional[Point]):
         # Arrange
         calibration_points: list[Point] = [Point(0, 0), Point(500, 0), Point(500, 500), Point(0, 500)]
         camera: Camera = Camera.__new__(Camera)
