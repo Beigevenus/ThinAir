@@ -3,6 +3,8 @@ ThinAir is a software implementation allowing virtually any combination of a web
 
 ThinAir has been produced as an undergraduate project at Aalborg University, Denmark.
 
+![ThinAir in action](example.jpg)
+
 ## Supported Hardware and OS
 The system has been tested with various combinations of projectors, webcams, and operating systems. The following is a list of components that have been officially tested and have been determined to be fully supported, although we assume that it will work with essentially any combination of projector, webcam, and OS as long as these are compatible with each other.
 
