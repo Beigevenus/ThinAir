@@ -5,11 +5,9 @@ from model.Point import Point
 
 class MenuWheel:
     def __init__(self, layer: Canvas):
-        self.is_open: bool = False
         self.tool_buttons: list[Button] = []
         self.color_buttons: list[Button] = []
         self.layer = layer
-        self.center_point = Point(0, 0)
         self.prev_drawing_color: str = "WHITE"
         self.drawing_color: str = "WHITE"
         self.current_tool: str = "DRAW"
@@ -39,9 +37,9 @@ class MenuWheel:
         :param img: The path of the image to display for the tool
         """
         if self.current_tool == tool:
-            self.tool_buttons.append(Button(callback, active=True, icon=img))
+            self.tool_buttons.append(Button(callback, active=True, icon=img, offset=(-100, 0)))
         else:
-            self.tool_buttons.append(Button(callback, icon=img))
+            self.tool_buttons.append(Button(callback, icon=img, offset=(-100, 0)))
 
     def add_color_button(self, callback, color: str) -> None:
         """
@@ -51,9 +49,9 @@ class MenuWheel:
         :param color: The name of the color
         """
         if self.drawing_color == color:
-            self.color_buttons.append(Button(callback, color=color, active=True))
+            self.color_buttons.append(Button(callback, color=color, active=True, offset=(0, 100)))
         else:
-            self.color_buttons.append(Button(callback, color=color))
+            self.color_buttons.append(Button(callback, color=color, offset=(0, 100)))
 
     def draw_buttons(self) -> None:
         """
@@ -169,16 +167,8 @@ class MenuWheel:
             if button.is_point_in_circle(point):
                 button.callback(button)
 
-    def open_menu(self) -> None:
+    def draw_menu(self) -> None:
         """
         Opens the menu wheel.
         """
-        self.is_open = True
         self.draw_buttons()
-
-    def close_menu(self) -> None:
-        """
-        Closes the menu wheel.
-        """
-        self.is_open = False
-        self.layer.wipe()
