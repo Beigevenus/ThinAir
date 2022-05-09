@@ -70,8 +70,11 @@ class Canvas:
     def new_line(self, force: bool = False) -> None:
         # TODO: Write docstring for method
         if force:
-            if not self.lines[-1][1]:
-                self.lines.pop()
+            try:
+                if not self.lines[-1][1]:
+                    self.lines.pop()
+            except Exception:
+                pass
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
         elif self.lines[-1][1]:
