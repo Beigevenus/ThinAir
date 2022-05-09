@@ -39,9 +39,9 @@ class MenuWheel:
         :param img: The path of the image to display for the tool
         """
         if self.current_tool == tool:
-            self.tool_buttons.append(Button(callback, active=True, icon=img))
+            self.tool_buttons.append(Button(callback, active=True, icon=img, offset=(-100, 0)))
         else:
-            self.tool_buttons.append(Button(callback, icon=img))
+            self.tool_buttons.append(Button(callback, icon=img, offset=(-100, 0)))
 
     def add_color_button(self, callback, color: str) -> None:
         """
@@ -51,9 +51,9 @@ class MenuWheel:
         :param color: The name of the color
         """
         if self.drawing_color == color:
-            self.color_buttons.append(Button(callback, color=color, active=True))
+            self.color_buttons.append(Button(callback, color=color, active=True, offset=(0, 100)))
         else:
-            self.color_buttons.append(Button(callback, color=color))
+            self.color_buttons.append(Button(callback, color=color, offset=(0, 100)))
 
     def draw_buttons(self) -> None:
         """
