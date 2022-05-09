@@ -21,7 +21,6 @@ mp_hand = mp.solutions.hands
 
 def main(config: Settings) -> int:
     drawing_point: Optional[Point] = None
-    drawing_precision: int = 5
     point_on_canvas: Optional[Point] = None
     white_screen = np.full(shape=[480, 720, 4], fill_value=[255, 255, 255, 255], dtype=np.uint8)
     write_text(white_screen, "To calibrate the camera, please press the corners of the screen in the camera window",
@@ -31,6 +30,9 @@ def main(config: Settings) -> int:
     canvas.move_window(config.monitor.x, config.monitor.y)
     if config.is_fullscreen == 1:
         canvas.fullscreen()
+
+    menu_switch = False
+    menu_state = False
 
     cal_points: list[Point] = ConfigHandler.load_calibration_points()
     if cal_points:
@@ -66,8 +68,12 @@ def main(config: Settings) -> int:
         if counter % 2 == 0:
             canvas.wipe()
             canvas.draw()
-            drawing_point, point_on_canvas = analyse_frame(camera, hands, hand, canvas, drawing_point, point_on_canvas,
-                                                           menu_wheel)
+
+            if menu_state:
+                menu_wheel.draw_menu()
+
+            drawing_point, point_on_canvas, menu_state, menu_switch = analyse_frame(camera, hands, hand, canvas, drawing_point, point_on_canvas,
+                                                           menu_wheel, menu_state, menu_switch)
             if len(camera.boundary_points) > 1:
                 canvas.show()
             else:
@@ -110,7 +116,7 @@ def write_text(image, text: str, width: int) -> None:
 
 
 def analyse_frame(camera, hands, hand, canvas, drawing_point,
-                  point_on_canvas: Optional[Point], menu_wheel) -> tuple[Point, Point]:
+                  point_on_canvas: Optional[Point], menu_wheel, menu_state, menu_switch) -> tuple[Point, Point]:
     # TODO: Write docstring for function
     camera.frame = cv2.cvtColor(camera.frame, cv2.COLOR_BGR2RGB)
 
@@ -130,24 +136,38 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point,
             if camera.calibration_is_done():
                 hand_sign: str = hand.get_hand_sign(camera.frame, hand_landmarks)
 
-                if hand_sign == "Open" or hand_sign == "Pointer":
-                    if menu_wheel.is_open:
-                        canvas.new_line(force=True)
-                        menu_wheel.close_menu()
+                if hand_sign == "Open":
+                    canvas.new_line()
+                    if menu_state:
+                        menu_switch = True
+                    elif not menu_state:
+                        menu_switch = False
 
                 if hand_sign == "Pointer":
-                    if menu_wheel.current_tool == "DRAW":
-                        normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
-                        if normalised_point is not None:
-                            point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
+                    if menu_state:
+                        menu_switch = True
+                    elif not menu_state:
+                        menu_switch = False
 
-                        canvas.add_point(point_on_canvas)
+                    if menu_state:
+                        normalised_point = camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip)
+                        if normalised_point is not None:
+                            menu_point = camera.transform_point(normalised_point, canvas.width, canvas.height)
+                            canvas.draw_circle(menu_point, [0, 255, 0, 255], 5)
+                            menu_wheel.check_button_click(menu_point)
                     else:
-                        normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
-                        if normalised_point is not None:
-                            point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
+                        if menu_wheel.current_tool == "DRAW":
+                            normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
+                            if normalised_point is not None:
+                                point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
 
-                        canvas.erase(point_on_canvas, 15)
+                            canvas.add_point(point_on_canvas)
+                        else:
+                            normalised_point = camera.normalise_in_boundary(hand.get_index_tip())
+                            if normalised_point is not None:
+                                point_on_canvas = camera.transform_point(normalised_point, canvas.width, canvas.height)
+
+                            canvas.erase(point_on_canvas, 15)
 
                 else:
                     drawing_point = None
@@ -156,15 +176,13 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point,
                     normalised_point = camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip)
                     if normalised_point is not None:
                         menu_point = camera.transform_point(normalised_point, canvas.width, canvas.height)
-                        if not menu_wheel.is_open:
-                            menu_wheel.center_point = menu_point
-
-                        menu_wheel.open_menu()
                         canvas.draw_circle(menu_point, [0, 255, 0, 255], 5)
                         menu_wheel.check_button_click(menu_point)
-
-                if hand_sign == "Close" or hand_sign == "Open":
-                    canvas.new_line()
+                    if menu_switch:
+                        menu_state = False
+                        canvas.new_line(force=True)
+                    elif not menu_switch:
+                        menu_state = True
 
             # Mask for removing the hand
             mask_points = []
@@ -179,7 +197,7 @@ def analyse_frame(camera, hands, hand, canvas, drawing_point,
                     camera.transform_point(camera.normalise_in_boundary(hand.fingers["INDEX_FINGER"].tip), canvas.width,
                                            canvas.height), color=[0, 255, 0, 255], size=3)
 
-    return drawing_point, point_on_canvas
+    return drawing_point, point_on_canvas, menu_state, menu_switch
 
 
 def check_key_presses(canvas: Canvas, camera: Camera):

@@ -5,11 +5,9 @@ from model.Point import Point
 
 class MenuWheel:
     def __init__(self, layer: Canvas):
-        self.is_open: bool = False
         self.tool_buttons: list[Button] = []
         self.color_buttons: list[Button] = []
         self.layer = layer
-        self.center_point = Point(0, 0)
         self.prev_drawing_color: str = "WHITE"
         self.drawing_color: str = "WHITE"
         self.current_tool: str = "DRAW"
@@ -169,16 +167,8 @@ class MenuWheel:
             if button.is_point_in_circle(point):
                 button.callback(button)
 
-    def open_menu(self) -> None:
+    def draw_menu(self) -> None:
         """
         Opens the menu wheel.
         """
-        self.is_open = True
         self.draw_buttons()
-
-    def close_menu(self) -> None:
-        """
-        Closes the menu wheel.
-        """
-        self.is_open = False
-        self.layer.wipe()

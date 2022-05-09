@@ -70,6 +70,8 @@ class Canvas:
     def new_line(self, force: bool = False) -> None:
         # TODO: Write docstring for method
         if force:
+            if not self.lines[-1][1]:
+                self.lines.pop()
             color = copy.deepcopy(self.color)
             self.lines.append((color, []))
         elif self.lines[-1][1]:
@@ -99,7 +101,7 @@ class Canvas:
 
     def draw(self) -> None:
         # TODO: Write docstring for method
-        size: int = 3
+        size: int = 2
         for color, line in self.lines:
             if line:
                 previous_point = line[0]
