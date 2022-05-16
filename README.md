@@ -44,10 +44,10 @@ To calibrate the camera, make sure the entire projected surface or screen is wit
 You can now use your hand to draw on the projected surface.
 
 #### Hand Poses
-| **Name**     | **Pose**                                            | **Functionality**                                  |
-|--------------|-----------------------------------------------------|----------------------------------------------------|
-| Current Tool | Extend index finger, retract all other fingers      | Uses the currently selected tool (drawing/erasing) |
-| Tool Menu    | Make a fist, and move your hand to the desired tool | Opens the tool/color menu                          |
+| **Name**     | **Pose**                                                | **Functionality**                                  |
+|--------------|---------------------------------------------------------|----------------------------------------------------|
+| Current Tool | Extend index finger, retract all other fingers          | Uses the currently selected tool (drawing/erasing) |
+| Tool Menu    | Make a fist, and point to the desired tool to select it | Toggles the tool/color menu                        |
 
 ## Development
 For further development on ThinAir, there's a few important details highlighted here.
